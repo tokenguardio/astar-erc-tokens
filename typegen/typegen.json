@@ -1,0 +1,7 @@
+{
+  "outDir": "../src/types/generated",
+  "specVersions": "astarVersions.jsonl",
+  "typesBundle": "astar",
+  "events": true,
+  "calls": true
+}
