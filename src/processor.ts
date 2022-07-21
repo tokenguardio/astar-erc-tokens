@@ -46,7 +46,11 @@ processor.run(database, async (ctx: Context) => {
           try {
             await modules.handleErc20Transfer(ctx, block.header, item.event);
           } catch (e) {
-            await modules.handleErc721Transfer(ctx, block.header, item.event);
+            try {
+              await modules.handleErc721Transfer(ctx, block.header, item.event);
+            } catch (error) {
+              console.log(error);
+            }
           }
         }
       }
