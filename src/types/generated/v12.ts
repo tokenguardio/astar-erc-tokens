@@ -9,18 +9,16 @@ export interface RewardDistributionConfig {
   idealDappsStakingTvl: number
 }
 
-export type AccountId32 = Uint8Array
-
 export type SmartContract = SmartContract_Evm | SmartContract_Wasm
 
 export interface SmartContract_Evm {
   __kind: 'Evm'
-  value: H160
+  value: Uint8Array
 }
 
 export interface SmartContract_Wasm {
   __kind: 'Wasm'
-  value: AccountId32
+  value: Uint8Array
 }
 
 export type Call = Call_System | Call_Utility | Call_Identity | Call_Timestamp | Call_Multisig | Call_ParachainSystem | Call_Balances | Call_Vesting | Call_DappsStaking | Call_BlockReward | Call_Authorship | Call_CollatorSelection | Call_Session | Call_EVM | Call_Ethereum | Call_EthCall | Call_BaseFee | Call_Sudo
@@ -119,7 +117,7 @@ export type MultiAddress = MultiAddress_Id | MultiAddress_Index | MultiAddress_R
 
 export interface MultiAddress_Id {
   __kind: 'Id'
-  value: AccountId32
+  value: Uint8Array
 }
 
 export interface MultiAddress_Index {
@@ -146,20 +144,18 @@ export type OriginCaller = OriginCaller_system | OriginCaller_Ethereum | OriginC
 
 export interface OriginCaller_system {
   __kind: 'system'
-  value: RawOrigin_188
+  value: RawOrigin
 }
 
 export interface OriginCaller_Ethereum {
   __kind: 'Ethereum'
-  value: RawOrigin_189
+  value: Type_189
 }
 
 export interface OriginCaller_Void {
   __kind: 'Void'
   value: Void
 }
-
-export type H160 = Uint8Array
 
 /**
  * Contains one variant per dispatchable that can be called by an extrinsic.
@@ -171,7 +167,7 @@ export type SystemCall = SystemCall_fill_block | SystemCall_remark | SystemCall_
  */
 export interface SystemCall_fill_block {
   __kind: 'fill_block'
-  ratio: Perbill
+  ratio: number
 }
 
 /**
@@ -378,7 +374,7 @@ export type IdentityCall = IdentityCall_add_registrar | IdentityCall_set_identit
  */
 export interface IdentityCall_add_registrar {
   __kind: 'add_registrar'
-  account: AccountId32
+  account: Uint8Array
 }
 
 /**
@@ -432,7 +428,7 @@ export interface IdentityCall_set_identity {
  */
 export interface IdentityCall_set_subs {
   __kind: 'set_subs'
-  subs: [AccountId32, Data][]
+  subs: [Uint8Array, Data][]
 }
 
 /**
@@ -553,7 +549,7 @@ export interface IdentityCall_set_fee {
 export interface IdentityCall_set_account_id {
   __kind: 'set_account_id'
   index: number
-  new: AccountId32
+  new: Uint8Array
 }
 
 /**
@@ -574,7 +570,7 @@ export interface IdentityCall_set_account_id {
 export interface IdentityCall_set_fields {
   __kind: 'set_fields'
   index: number
-  fields: BitFlags
+  fields: bigint
 }
 
 /**
@@ -741,7 +737,7 @@ export type MultisigCall = MultisigCall_as_multi_threshold_1 | MultisigCall_as_m
  */
 export interface MultisigCall_as_multi_threshold_1 {
   __kind: 'as_multi_threshold_1'
-  otherSignatories: AccountId32[]
+  otherSignatories: Uint8Array[]
   call: Call
 }
 
@@ -795,7 +791,7 @@ export interface MultisigCall_as_multi_threshold_1 {
 export interface MultisigCall_as_multi {
   __kind: 'as_multi'
   threshold: number
-  otherSignatories: AccountId32[]
+  otherSignatories: Uint8Array[]
   maybeTimepoint: (Timepoint | undefined)
   call: Uint8Array
   storeCall: boolean
@@ -842,7 +838,7 @@ export interface MultisigCall_as_multi {
 export interface MultisigCall_approve_as_multi {
   __kind: 'approve_as_multi'
   threshold: number
-  otherSignatories: AccountId32[]
+  otherSignatories: Uint8Array[]
   maybeTimepoint: (Timepoint | undefined)
   callHash: Uint8Array
   maxWeight: bigint
@@ -879,7 +875,7 @@ export interface MultisigCall_approve_as_multi {
 export interface MultisigCall_cancel_as_multi {
   __kind: 'cancel_as_multi'
   threshold: number
-  otherSignatories: AccountId32[]
+  otherSignatories: Uint8Array[]
   timepoint: Timepoint
   callHash: Uint8Array
 }
@@ -912,7 +908,7 @@ export interface ParachainSystemCall_sudo_send_upward_message {
 
 export interface ParachainSystemCall_authorize_upgrade {
   __kind: 'authorize_upgrade'
-  codeHash: H256
+  codeHash: Uint8Array
 }
 
 export interface ParachainSystemCall_enact_authorized_upgrade {
@@ -1317,7 +1313,7 @@ export interface DappsStakingCall_force_new_era {
  */
 export interface DappsStakingCall_developer_pre_approval {
   __kind: 'developer_pre_approval'
-  developer: AccountId32
+  developer: Uint8Array
 }
 
 /**
@@ -1369,7 +1365,7 @@ export type AuthorshipCall = AuthorshipCall_set_uncles
  */
 export interface AuthorshipCall_set_uncles {
   __kind: 'set_uncles'
-  newUncles: Header_163[]
+  newUncles: Header[]
 }
 
 /**
@@ -1379,7 +1375,7 @@ export type CollatorSelectionCall = CollatorSelectionCall_set_invulnerables | Co
 
 export interface CollatorSelectionCall_set_invulnerables {
   __kind: 'set_invulnerables'
-  new: AccountId32[]
+  new: Uint8Array[]
 }
 
 export interface CollatorSelectionCall_set_desired_candidates {
@@ -1459,7 +1455,7 @@ export type EVMCall = EVMCall_withdraw | EVMCall_call | EVMCall_create | EVMCall
  */
 export interface EVMCall_withdraw {
   __kind: 'withdraw'
-  address: H160
+  address: Uint8Array
   value: bigint
 }
 
@@ -1468,15 +1464,15 @@ export interface EVMCall_withdraw {
  */
 export interface EVMCall_call {
   __kind: 'call'
-  source: H160
-  target: H160
+  source: Uint8Array
+  target: Uint8Array
   input: Uint8Array
-  value: U256
+  value: bigint[]
   gasLimit: bigint
-  maxFeePerGas: U256
-  maxPriorityFeePerGas: (U256 | undefined)
-  nonce: (U256 | undefined)
-  accessList: [H160, H256[]][]
+  maxFeePerGas: bigint[]
+  maxPriorityFeePerGas: (bigint[] | undefined)
+  nonce: (bigint[] | undefined)
+  accessList: [Uint8Array, Uint8Array[]][]
 }
 
 /**
@@ -1485,14 +1481,14 @@ export interface EVMCall_call {
  */
 export interface EVMCall_create {
   __kind: 'create'
-  source: H160
+  source: Uint8Array
   init: Uint8Array
-  value: U256
+  value: bigint[]
   gasLimit: bigint
-  maxFeePerGas: U256
-  maxPriorityFeePerGas: (U256 | undefined)
-  nonce: (U256 | undefined)
-  accessList: [H160, H256[]][]
+  maxFeePerGas: bigint[]
+  maxPriorityFeePerGas: (bigint[] | undefined)
+  nonce: (bigint[] | undefined)
+  accessList: [Uint8Array, Uint8Array[]][]
 }
 
 /**
@@ -1500,15 +1496,15 @@ export interface EVMCall_create {
  */
 export interface EVMCall_create2 {
   __kind: 'create2'
-  source: H160
+  source: Uint8Array
   init: Uint8Array
-  salt: H256
-  value: U256
+  salt: Uint8Array
+  value: bigint[]
   gasLimit: bigint
-  maxFeePerGas: U256
-  maxPriorityFeePerGas: (U256 | undefined)
-  nonce: (U256 | undefined)
-  accessList: [H160, H256[]][]
+  maxFeePerGas: bigint[]
+  maxPriorityFeePerGas: (bigint[] | undefined)
+  nonce: (bigint[] | undefined)
+  accessList: [Uint8Array, Uint8Array[]][]
 }
 
 /**
@@ -1540,7 +1536,7 @@ export type EthCallCall = EthCallCall_call
 export interface EthCallCall_call {
   __kind: 'call'
   call: Call
-  signer: AccountId32
+  signer: Uint8Array
   signature: Uint8Array
   nonce: number
 }
@@ -1552,7 +1548,7 @@ export type BaseFeeCall = BaseFeeCall_set_base_fee_per_gas | BaseFeeCall_set_is_
 
 export interface BaseFeeCall_set_base_fee_per_gas {
   __kind: 'set_base_fee_per_gas'
-  fee: U256
+  fee: bigint[]
 }
 
 export interface BaseFeeCall_set_is_active {
@@ -1562,7 +1558,7 @@ export interface BaseFeeCall_set_is_active {
 
 export interface BaseFeeCall_set_elasticity {
   __kind: 'set_elasticity'
-  elasticity: Permill
+  elasticity: number
 }
 
 /**
@@ -1641,31 +1637,29 @@ export interface SudoCall_sudo_as {
   call: Call
 }
 
-export type RawOrigin_188 = RawOrigin_188_Root | RawOrigin_188_Signed | RawOrigin_188_None
+export type RawOrigin = RawOrigin_Root | RawOrigin_Signed | RawOrigin_None
 
-export interface RawOrigin_188_Root {
+export interface RawOrigin_Root {
   __kind: 'Root'
 }
 
-export interface RawOrigin_188_Signed {
+export interface RawOrigin_Signed {
   __kind: 'Signed'
-  value: AccountId32
+  value: Uint8Array
 }
 
-export interface RawOrigin_188_None {
+export interface RawOrigin_None {
   __kind: 'None'
 }
 
-export type RawOrigin_189 = RawOrigin_189_EthereumTransaction
+export type Type_189 = Type_189_EthereumTransaction
 
-export interface RawOrigin_189_EthereumTransaction {
+export interface Type_189_EthereumTransaction {
   __kind: 'EthereumTransaction'
-  value: H160
+  value: Uint8Array
 }
 
 export type Void = never
-
-export type Perbill = number
 
 export interface IdentityInfo {
   additional: [Data, Data][]
@@ -1870,8 +1864,6 @@ export interface Data_ShaThree256 {
   value: Uint8Array
 }
 
-export type BitFlags = bigint
-
 export type Judgement = Judgement_Unknown | Judgement_FeePaid | Judgement_Reasonable | Judgement_KnownGood | Judgement_OutOfDate | Judgement_LowQuality | Judgement_Erroneous
 
 export interface Judgement_Unknown {
@@ -1912,10 +1904,8 @@ export interface ParachainInherentData {
   validationData: V1PersistedValidationData
   relayChainState: StorageProof
   downwardMessages: InboundDownwardMessage[]
-  horizontalMessages: [Id, InboundHrmpMessage[]][]
+  horizontalMessages: [number, InboundHrmpMessage[]][]
 }
-
-export type H256 = Uint8Array
 
 export interface VestingInfo {
   locked: bigint
@@ -1923,19 +1913,17 @@ export interface VestingInfo {
   startingBlock: number
 }
 
-export interface Header_163 {
-  parentHash: H256
+export interface Header {
+  parentHash: Uint8Array
   number: number
-  stateRoot: H256
-  extrinsicsRoot: H256
+  stateRoot: Uint8Array
+  extrinsicsRoot: Uint8Array
   digest: Digest
 }
 
 export interface SessionKeys {
-  aura: Public
+  aura: Uint8Array
 }
-
-export type U256 = bigint[]
 
 export type TransactionV2 = TransactionV2_Legacy | TransactionV2_EIP2930 | TransactionV2_EIP1559
 
@@ -1954,12 +1942,10 @@ export interface TransactionV2_EIP1559 {
   value: EIP1559Transaction
 }
 
-export type Permill = number
-
 export interface V1PersistedValidationData {
-  parentHead: HeadData
+  parentHead: Uint8Array
   relayParentNumber: number
-  relayParentStorageRoot: H256
+  relayParentStorageRoot: Uint8Array
   maxPovSize: number
 }
 
@@ -1972,8 +1958,6 @@ export interface InboundDownwardMessage {
   msg: Uint8Array
 }
 
-export type Id = number
-
 export interface InboundHrmpMessage {
   sentAt: number
   data: Uint8Array
@@ -1983,48 +1967,44 @@ export interface Digest {
   logs: DigestItem[]
 }
 
-export type Public = Uint8Array
-
 export interface LegacyTransaction {
-  nonce: U256
-  gasPrice: U256
-  gasLimit: U256
+  nonce: bigint[]
+  gasPrice: bigint[]
+  gasLimit: bigint[]
   action: TransactionAction
-  value: U256
+  value: bigint[]
   input: Uint8Array
   signature: TransactionSignature
 }
 
 export interface EIP2930Transaction {
   chainId: bigint
-  nonce: U256
-  gasPrice: U256
-  gasLimit: U256
+  nonce: bigint[]
+  gasPrice: bigint[]
+  gasLimit: bigint[]
   action: TransactionAction
-  value: U256
+  value: bigint[]
   input: Uint8Array
   accessList: AccessListItem[]
   oddYParity: boolean
-  r: H256
-  s: H256
+  r: Uint8Array
+  s: Uint8Array
 }
 
 export interface EIP1559Transaction {
   chainId: bigint
-  nonce: U256
-  maxPriorityFeePerGas: U256
-  maxFeePerGas: U256
-  gasLimit: U256
+  nonce: bigint[]
+  maxPriorityFeePerGas: bigint[]
+  maxFeePerGas: bigint[]
+  gasLimit: bigint[]
   action: TransactionAction
-  value: U256
+  value: bigint[]
   input: Uint8Array
   accessList: AccessListItem[]
   oddYParity: boolean
-  r: H256
-  s: H256
+  r: Uint8Array
+  s: Uint8Array
 }
-
-export type HeadData = Uint8Array
 
 export type DigestItem = DigestItem_PreRuntime | DigestItem_Consensus | DigestItem_Seal | DigestItem_Other | DigestItem_RuntimeEnvironmentUpdated
 
@@ -2056,7 +2036,7 @@ export type TransactionAction = TransactionAction_Call | TransactionAction_Creat
 
 export interface TransactionAction_Call {
   __kind: 'Call'
-  value: H160
+  value: Uint8Array
 }
 
 export interface TransactionAction_Create {
@@ -2064,14 +2044,12 @@ export interface TransactionAction_Create {
 }
 
 export interface TransactionSignature {
-  v: TransactionRecoveryId
-  r: H256
-  s: H256
+  v: bigint
+  r: Uint8Array
+  s: Uint8Array
 }
 
 export interface AccessListItem {
-  address: H160
-  storageKeys: H256[]
+  address: Uint8Array
+  storageKeys: Uint8Array[]
 }
-
-export type TransactionRecoveryId = bigint

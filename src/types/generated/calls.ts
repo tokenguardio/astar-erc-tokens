@@ -1415,7 +1415,7 @@ export class AuthorshipSetUnclesCall {
   /**
    * Provide a set of uncles.
    */
-  get asV1(): {newUncles: v1.Header_152[]} {
+  get asV1(): {newUncles: v1.Header[]} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -1430,7 +1430,7 @@ export class AuthorshipSetUnclesCall {
   /**
    * Provide a set of uncles.
    */
-  get asV3(): {newUncles: v3.Header_150[]} {
+  get asV3(): {newUncles: v3.Header[]} {
     assert(this.isV3)
     return this._chain.decodeCall(this.call)
   }
@@ -1781,7 +1781,7 @@ export class BaseFeeSetBaseFeePerGasCall {
     return this._chain.getCallHash('BaseFee.set_base_fee_per_gas') === '5bd81ad9acbdd818e9f9ac3692f947f6eb9f8929f0bd910ab889b377d83d3841'
   }
 
-  get asV9(): {fee: v9.U256} {
+  get asV9(): {fee: bigint[]} {
     assert(this.isV9)
     return this._chain.decodeCall(this.call)
   }
@@ -1804,7 +1804,7 @@ export class BaseFeeSetElasticityCall {
     return this._chain.getCallHash('BaseFee.set_elasticity') === 'efcd4cd6d4fde4342db62d270df85a88b1c153af50159f9bc1ba1ce1133f2524'
   }
 
-  get asV9(): {elasticity: v9.Permill} {
+  get asV9(): {elasticity: number} {
     assert(this.isV9)
     return this._chain.decodeCall(this.call)
   }
@@ -1987,7 +1987,7 @@ export class CollatorSelectionSetInvulnerablesCall {
     return this._chain.getCallHash('CollatorSelection.set_invulnerables') === '4f4db85b7e763f702804fa793ac5cba68cfd546b497830a9c3c21dced2b91524'
   }
 
-  get asV1(): {new: v1.AccountId32[]} {
+  get asV1(): {new: Uint8Array[]} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -2162,7 +2162,7 @@ export class DappsStakingDeveloperPreApprovalCall {
    * 
    * Sudo call is required
    */
-  get asV4(): {developer: v4.AccountId32} {
+  get asV4(): {developer: Uint8Array} {
     assert(this.isV4)
     return this._chain.decodeCall(this.call)
   }
@@ -2703,7 +2703,7 @@ export class EvmCallCall {
   /**
    * Issue an EVM call operation. This is similar to a message call transaction in Ethereum.
    */
-  get asV1(): {source: v1.H160, target: v1.H160, input: Uint8Array, value: v1.U256, gasLimit: bigint, gasPrice: v1.U256, nonce: (v1.U256 | undefined)} {
+  get asV1(): {source: Uint8Array, target: Uint8Array, input: Uint8Array, value: bigint[], gasLimit: bigint, gasPrice: bigint[], nonce: (bigint[] | undefined)} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -2718,7 +2718,7 @@ export class EvmCallCall {
   /**
    * Issue an EVM call operation. This is similar to a message call transaction in Ethereum.
    */
-  get asV9(): {source: v9.H160, target: v9.H160, input: Uint8Array, value: v9.U256, gasLimit: bigint, maxFeePerGas: v9.U256, maxPriorityFeePerGas: (v9.U256 | undefined), nonce: (v9.U256 | undefined), accessList: [v9.H160, v9.H256[]][]} {
+  get asV9(): {source: Uint8Array, target: Uint8Array, input: Uint8Array, value: bigint[], gasLimit: bigint, maxFeePerGas: bigint[], maxPriorityFeePerGas: (bigint[] | undefined), nonce: (bigint[] | undefined), accessList: [Uint8Array, Uint8Array[]][]} {
     assert(this.isV9)
     return this._chain.decodeCall(this.call)
   }
@@ -2749,7 +2749,7 @@ export class EvmCreateCall {
    * Issue an EVM create operation. This is similar to a contract creation transaction in
    * Ethereum.
    */
-  get asV1(): {source: v1.H160, init: Uint8Array, value: v1.U256, gasLimit: bigint, gasPrice: v1.U256, nonce: (v1.U256 | undefined)} {
+  get asV1(): {source: Uint8Array, init: Uint8Array, value: bigint[], gasLimit: bigint, gasPrice: bigint[], nonce: (bigint[] | undefined)} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -2766,7 +2766,7 @@ export class EvmCreateCall {
    * Issue an EVM create operation. This is similar to a contract creation transaction in
    * Ethereum.
    */
-  get asV9(): {source: v9.H160, init: Uint8Array, value: v9.U256, gasLimit: bigint, maxFeePerGas: v9.U256, maxPriorityFeePerGas: (v9.U256 | undefined), nonce: (v9.U256 | undefined), accessList: [v9.H160, v9.H256[]][]} {
+  get asV9(): {source: Uint8Array, init: Uint8Array, value: bigint[], gasLimit: bigint, maxFeePerGas: bigint[], maxPriorityFeePerGas: (bigint[] | undefined), nonce: (bigint[] | undefined), accessList: [Uint8Array, Uint8Array[]][]} {
     assert(this.isV9)
     return this._chain.decodeCall(this.call)
   }
@@ -2795,7 +2795,7 @@ export class EvmCreate2Call {
   /**
    * Issue an EVM create2 operation.
    */
-  get asV1(): {source: v1.H160, init: Uint8Array, salt: v1.H256, value: v1.U256, gasLimit: bigint, gasPrice: v1.U256, nonce: (v1.U256 | undefined)} {
+  get asV1(): {source: Uint8Array, init: Uint8Array, salt: Uint8Array, value: bigint[], gasLimit: bigint, gasPrice: bigint[], nonce: (bigint[] | undefined)} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -2810,7 +2810,7 @@ export class EvmCreate2Call {
   /**
    * Issue an EVM create2 operation.
    */
-  get asV9(): {source: v9.H160, init: Uint8Array, salt: v9.H256, value: v9.U256, gasLimit: bigint, maxFeePerGas: v9.U256, maxPriorityFeePerGas: (v9.U256 | undefined), nonce: (v9.U256 | undefined), accessList: [v9.H160, v9.H256[]][]} {
+  get asV9(): {source: Uint8Array, init: Uint8Array, salt: Uint8Array, value: bigint[], gasLimit: bigint, maxFeePerGas: bigint[], maxPriorityFeePerGas: (bigint[] | undefined), nonce: (bigint[] | undefined), accessList: [Uint8Array, Uint8Array[]][]} {
     assert(this.isV9)
     return this._chain.decodeCall(this.call)
   }
@@ -2839,7 +2839,7 @@ export class EvmHotfixIncAccountSufficientsCall {
   /**
    * Increment `sufficients` for existing accounts having a nonzero `nonce` but zero `sufficients` value.
    */
-  get asV15(): {addresses: v15.H160[]} {
+  get asV15(): {addresses: Uint8Array[]} {
     assert(this.isV15)
     return this._chain.decodeCall(this.call)
   }
@@ -2868,7 +2868,7 @@ export class EvmWithdrawCall {
   /**
    * Withdraw balance from EVM into currency/balances pallet.
    */
-  get asV1(): {address: v1.H160, value: bigint} {
+  get asV1(): {address: Uint8Array, value: bigint} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -2907,7 +2907,7 @@ export class EthCallCallCall {
    * - Weight of derivative `call` execution + 10,000.
    * # </weight>
    */
-  get asV1(): {call: v1.Call, signer: v1.AccountId32, signature: Uint8Array, nonce: number} {
+  get asV1(): {call: v1.Call, signer: Uint8Array, signature: Uint8Array, nonce: number} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -2932,7 +2932,7 @@ export class EthCallCallCall {
    * - Weight of derivative `call` execution + 10,000.
    * # </weight>
    */
-  get asV3(): {call: v3.Call, signer: v3.AccountId32, signature: Uint8Array, nonce: number} {
+  get asV3(): {call: v3.Call, signer: Uint8Array, signature: Uint8Array, nonce: number} {
     assert(this.isV3)
     return this._chain.decodeCall(this.call)
   }
@@ -2957,7 +2957,7 @@ export class EthCallCallCall {
    * - Weight of derivative `call` execution + 10,000.
    * # </weight>
    */
-  get asV4(): {call: v4.Call, signer: v4.AccountId32, signature: Uint8Array, nonce: number} {
+  get asV4(): {call: v4.Call, signer: Uint8Array, signature: Uint8Array, nonce: number} {
     assert(this.isV4)
     return this._chain.decodeCall(this.call)
   }
@@ -2982,7 +2982,7 @@ export class EthCallCallCall {
    * - Weight of derivative `call` execution + 10,000.
    * # </weight>
    */
-  get asV9(): {call: v9.Call, signer: v9.AccountId32, signature: Uint8Array, nonce: number} {
+  get asV9(): {call: v9.Call, signer: Uint8Array, signature: Uint8Array, nonce: number} {
     assert(this.isV9)
     return this._chain.decodeCall(this.call)
   }
@@ -3007,7 +3007,7 @@ export class EthCallCallCall {
    * - Weight of derivative `call` execution + 10,000.
    * # </weight>
    */
-  get asV12(): {call: v12.Call, signer: v12.AccountId32, signature: Uint8Array, nonce: number} {
+  get asV12(): {call: v12.Call, signer: Uint8Array, signature: Uint8Array, nonce: number} {
     assert(this.isV12)
     return this._chain.decodeCall(this.call)
   }
@@ -3032,7 +3032,7 @@ export class EthCallCallCall {
    * - Weight of derivative `call` execution + 10,000.
    * # </weight>
    */
-  get asV13(): {call: v13.Call, signer: v13.AccountId32, signature: Uint8Array, nonce: number} {
+  get asV13(): {call: v13.Call, signer: Uint8Array, signature: Uint8Array, nonce: number} {
     assert(this.isV13)
     return this._chain.decodeCall(this.call)
   }
@@ -3057,7 +3057,7 @@ export class EthCallCallCall {
    * - Weight of derivative `call` execution + 10,000.
    * # </weight>
    */
-  get asV15(): {call: v15.Call, signer: v15.AccountId32, signature: Uint8Array, nonce: number} {
+  get asV15(): {call: v15.Call, signer: Uint8Array, signature: Uint8Array, nonce: number} {
     assert(this.isV15)
     return this._chain.decodeCall(this.call)
   }
@@ -3082,7 +3082,7 @@ export class EthCallCallCall {
    * - Weight of derivative `call` execution + 10,000.
    * # </weight>
    */
-  get asV16(): {call: v16.Call, signer: v16.AccountId32, signature: Uint8Array, nonce: number} {
+  get asV16(): {call: v16.Call, signer: Uint8Array, signature: Uint8Array, nonce: number} {
     assert(this.isV16)
     return this._chain.decodeCall(this.call)
   }
@@ -3107,7 +3107,7 @@ export class EthCallCallCall {
    * - Weight of derivative `call` execution + 10,000.
    * # </weight>
    */
-  get asV17(): {call: v17.Call, signer: v17.AccountId32, signature: Uint8Array, nonce: number} {
+  get asV17(): {call: v17.Call, signer: Uint8Array, signature: Uint8Array, nonce: number} {
     assert(this.isV17)
     return this._chain.decodeCall(this.call)
   }
@@ -3132,7 +3132,7 @@ export class EthCallCallCall {
    * - Weight of derivative `call` execution + 10,000.
    * # </weight>
    */
-  get asV23(): {call: v23.Call, signer: v23.AccountId32, signature: Uint8Array, nonce: number} {
+  get asV23(): {call: v23.Call, signer: Uint8Array, signature: Uint8Array, nonce: number} {
     assert(this.isV23)
     return this._chain.decodeCall(this.call)
   }
@@ -3229,7 +3229,7 @@ export class IdentityAddRegistrarCall {
    * - One event.
    * # </weight>
    */
-  get asV1(): {account: v1.AccountId32} {
+  get asV1(): {account: Uint8Array} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -3773,7 +3773,7 @@ export class IdentitySetAccountIdCall {
    * - Benchmark: 8.823 + R * 0.32 µs (min squares analysis)
    * # </weight>
    */
-  get asV1(): {index: number, new: v1.AccountId32} {
+  get asV1(): {index: number, new: Uint8Array} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -3879,7 +3879,7 @@ export class IdentitySetFieldsCall {
    * - Benchmark: 7.464 + R * 0.325 µs (min squares analysis)
    * # </weight>
    */
-  get asV1(): {index: number, fields: v1.BitFlags} {
+  get asV1(): {index: number, fields: bigint} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -4013,7 +4013,7 @@ export class IdentitySetSubsCall {
    *   - One storage-exists (`IdentityOf::contains_key`).
    * # </weight>
    */
-  get asV1(): {subs: [v1.AccountId32, v1.Data][]} {
+  get asV1(): {subs: [Uint8Array, v1.Data][]} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -4110,7 +4110,7 @@ export class MultisigApproveAsMultiCall {
    *     - Write: Multisig Storage, [Caller Account]
    * # </weight>
    */
-  get asV1(): {threshold: number, otherSignatories: v1.AccountId32[], maybeTimepoint: (v1.Timepoint | undefined), callHash: Uint8Array, maxWeight: bigint} {
+  get asV1(): {threshold: number, otherSignatories: Uint8Array[], maybeTimepoint: (v1.Timepoint | undefined), callHash: Uint8Array, maxWeight: bigint} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -4227,7 +4227,7 @@ export class MultisigAsMultiCall {
    * - Plus Call Weight
    * # </weight>
    */
-  get asV1(): {threshold: number, otherSignatories: v1.AccountId32[], maybeTimepoint: (v1.Timepoint | undefined), call: Uint8Array, storeCall: boolean, maxWeight: bigint} {
+  get asV1(): {threshold: number, otherSignatories: Uint8Array[], maybeTimepoint: (v1.Timepoint | undefined), call: Uint8Array, storeCall: boolean, maxWeight: bigint} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -4286,7 +4286,7 @@ export class MultisigAsMultiThreshold1Call {
    * - Plus Call Weight
    * # </weight>
    */
-  get asV1(): {otherSignatories: v1.AccountId32[], call: v1.Call} {
+  get asV1(): {otherSignatories: Uint8Array[], call: v1.Call} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -4331,7 +4331,7 @@ export class MultisigAsMultiThreshold1Call {
    * - Plus Call Weight
    * # </weight>
    */
-  get asV3(): {otherSignatories: v3.AccountId32[], call: v3.Call} {
+  get asV3(): {otherSignatories: Uint8Array[], call: v3.Call} {
     assert(this.isV3)
     return this._chain.decodeCall(this.call)
   }
@@ -4376,7 +4376,7 @@ export class MultisigAsMultiThreshold1Call {
    * - Plus Call Weight
    * # </weight>
    */
-  get asV4(): {otherSignatories: v4.AccountId32[], call: v4.Call} {
+  get asV4(): {otherSignatories: Uint8Array[], call: v4.Call} {
     assert(this.isV4)
     return this._chain.decodeCall(this.call)
   }
@@ -4421,7 +4421,7 @@ export class MultisigAsMultiThreshold1Call {
    * - Plus Call Weight
    * # </weight>
    */
-  get asV9(): {otherSignatories: v9.AccountId32[], call: v9.Call} {
+  get asV9(): {otherSignatories: Uint8Array[], call: v9.Call} {
     assert(this.isV9)
     return this._chain.decodeCall(this.call)
   }
@@ -4466,7 +4466,7 @@ export class MultisigAsMultiThreshold1Call {
    * - Plus Call Weight
    * # </weight>
    */
-  get asV12(): {otherSignatories: v12.AccountId32[], call: v12.Call} {
+  get asV12(): {otherSignatories: Uint8Array[], call: v12.Call} {
     assert(this.isV12)
     return this._chain.decodeCall(this.call)
   }
@@ -4511,7 +4511,7 @@ export class MultisigAsMultiThreshold1Call {
    * - Plus Call Weight
    * # </weight>
    */
-  get asV13(): {otherSignatories: v13.AccountId32[], call: v13.Call} {
+  get asV13(): {otherSignatories: Uint8Array[], call: v13.Call} {
     assert(this.isV13)
     return this._chain.decodeCall(this.call)
   }
@@ -4556,7 +4556,7 @@ export class MultisigAsMultiThreshold1Call {
    * - Plus Call Weight
    * # </weight>
    */
-  get asV15(): {otherSignatories: v15.AccountId32[], call: v15.Call} {
+  get asV15(): {otherSignatories: Uint8Array[], call: v15.Call} {
     assert(this.isV15)
     return this._chain.decodeCall(this.call)
   }
@@ -4601,7 +4601,7 @@ export class MultisigAsMultiThreshold1Call {
    * - Plus Call Weight
    * # </weight>
    */
-  get asV16(): {otherSignatories: v16.AccountId32[], call: v16.Call} {
+  get asV16(): {otherSignatories: Uint8Array[], call: v16.Call} {
     assert(this.isV16)
     return this._chain.decodeCall(this.call)
   }
@@ -4646,7 +4646,7 @@ export class MultisigAsMultiThreshold1Call {
    * - Plus Call Weight
    * # </weight>
    */
-  get asV17(): {otherSignatories: v17.AccountId32[], call: v17.Call} {
+  get asV17(): {otherSignatories: Uint8Array[], call: v17.Call} {
     assert(this.isV17)
     return this._chain.decodeCall(this.call)
   }
@@ -4691,7 +4691,7 @@ export class MultisigAsMultiThreshold1Call {
    * - Plus Call Weight
    * # </weight>
    */
-  get asV23(): {otherSignatories: v23.AccountId32[], call: v23.Call} {
+  get asV23(): {otherSignatories: Uint8Array[], call: v23.Call} {
     assert(this.isV23)
     return this._chain.decodeCall(this.call)
   }
@@ -4770,7 +4770,7 @@ export class MultisigCancelAsMultiCall {
    *     - Write: Multisig Storage, [Caller Account], Refund Account, Calls
    * # </weight>
    */
-  get asV1(): {threshold: number, otherSignatories: v1.AccountId32[], timepoint: v1.Timepoint, callHash: Uint8Array} {
+  get asV1(): {threshold: number, otherSignatories: Uint8Array[], timepoint: v1.Timepoint, callHash: Uint8Array} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -4793,7 +4793,7 @@ export class ParachainSystemAuthorizeUpgradeCall {
     return this._chain.getCallHash('ParachainSystem.authorize_upgrade') === '9e5c86c297bd88fae31bc40119e44695818ddc3ab8842b90daeb12771005c70d'
   }
 
-  get asV1(): {codeHash: v1.H256} {
+  get asV1(): {codeHash: Uint8Array} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }
@@ -4972,7 +4972,7 @@ export class PolkadotXcmExecuteCall {
    * NOTE: A successful return to this does *not* imply that the `msg` was executed successfully
    * to completion; only that *some* of it was executed.
    */
-  get asV15(): {message: v15.VersionedXcm_226, maxWeight: bigint} {
+  get asV15(): {message: v15.Type_226, maxWeight: bigint} {
     assert(this.isV15)
     return this._chain.decodeCall(this.call)
   }
@@ -5448,7 +5448,7 @@ export class PolkadotXcmSendCall {
     return this._chain.getCallHash('PolkadotXcm.send') === '3ca4beb317aeed3e0a00ae870ffd3bef841bb6f4e766db0b286c7fc5d8eef886'
   }
 
-  get asV15(): {dest: v15.VersionedMultiLocation, message: v15.VersionedXcm_215} {
+  get asV15(): {dest: v15.VersionedMultiLocation, message: v15.VersionedXcm} {
     assert(this.isV15)
     return this._chain.decodeCall(this.call)
   }
@@ -6739,7 +6739,7 @@ export class SystemFillBlockCall {
   /**
    * A dispatch that will fill the block weight up to the given ratio.
    */
-  get asV1(): {ratio: v1.Perbill} {
+  get asV1(): {ratio: number} {
     assert(this.isV1)
     return this._chain.decodeCall(this.call)
   }

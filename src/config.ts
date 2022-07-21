@@ -1,10 +1,5 @@
 require('dotenv').config();
 
-export const dbName = process.env.DB_NAME || 'astar_erc20_erc721';
-export const dbUser = process.env.DB_USER || 'dev';
-export const dbPass = process.env.DB_PASS || 'qweasdzxc1';
-export const dbHost = process.env.DB_HOST || 'localhost';
-export const dbPort = parseInt(process.env.DB_PORT || '') || 5432;
 export const batchSize = process.env.BATCH_SIZE
   ? parseInt(process.env.BATCH_SIZE)
   : 50;

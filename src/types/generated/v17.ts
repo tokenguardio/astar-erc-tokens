@@ -1,17 +1,15 @@
 import type {Result} from './support'
 
-export type AccountId32 = Uint8Array
-
 export type SmartContract = SmartContract_Evm | SmartContract_Wasm
 
 export interface SmartContract_Evm {
   __kind: 'Evm'
-  value: H160
+  value: Uint8Array
 }
 
 export interface SmartContract_Wasm {
   __kind: 'Wasm'
-  value: AccountId32
+  value: Uint8Array
 }
 
 export type Call = Call_System | Call_Utility | Call_Identity | Call_Timestamp | Call_Multisig | Call_ParachainSystem | Call_Balances | Call_Vesting | Call_DappsStaking | Call_BlockReward | Call_Assets | Call_Authorship | Call_CollatorSelection | Call_Session | Call_XcmpQueue | Call_PolkadotXcm | Call_DmpQueue | Call_EVM | Call_Ethereum | Call_EthCall | Call_BaseFee | Call_Sudo
@@ -130,7 +128,7 @@ export type MultiAddress = MultiAddress_Id | MultiAddress_Index | MultiAddress_R
 
 export interface MultiAddress_Id {
   __kind: 'Id'
-  value: AccountId32
+  value: Uint8Array
 }
 
 export interface MultiAddress_Index {
@@ -157,30 +155,28 @@ export type OriginCaller = OriginCaller_system | OriginCaller_PolkadotXcm | Orig
 
 export interface OriginCaller_system {
   __kind: 'system'
-  value: RawOrigin_262
+  value: RawOrigin
 }
 
 export interface OriginCaller_PolkadotXcm {
   __kind: 'PolkadotXcm'
-  value: Origin_263
+  value: Origin
 }
 
 export interface OriginCaller_CumulusXcm {
   __kind: 'CumulusXcm'
-  value: Origin_264
+  value: Type_264
 }
 
 export interface OriginCaller_Ethereum {
   __kind: 'Ethereum'
-  value: RawOrigin_265
+  value: Type_265
 }
 
 export interface OriginCaller_Void {
   __kind: 'Void'
   value: Void
 }
-
-export type H160 = Uint8Array
 
 /**
  * Contains one variant per dispatchable that can be called by an extrinsic.
@@ -192,7 +188,7 @@ export type SystemCall = SystemCall_fill_block | SystemCall_remark | SystemCall_
  */
 export interface SystemCall_fill_block {
   __kind: 'fill_block'
-  ratio: Perbill
+  ratio: number
 }
 
 /**
@@ -399,7 +395,7 @@ export type IdentityCall = IdentityCall_add_registrar | IdentityCall_set_identit
  */
 export interface IdentityCall_add_registrar {
   __kind: 'add_registrar'
-  account: AccountId32
+  account: Uint8Array
 }
 
 /**
@@ -453,7 +449,7 @@ export interface IdentityCall_set_identity {
  */
 export interface IdentityCall_set_subs {
   __kind: 'set_subs'
-  subs: [AccountId32, Data][]
+  subs: [Uint8Array, Data][]
 }
 
 /**
@@ -574,7 +570,7 @@ export interface IdentityCall_set_fee {
 export interface IdentityCall_set_account_id {
   __kind: 'set_account_id'
   index: number
-  new: AccountId32
+  new: Uint8Array
 }
 
 /**
@@ -595,7 +591,7 @@ export interface IdentityCall_set_account_id {
 export interface IdentityCall_set_fields {
   __kind: 'set_fields'
   index: number
-  fields: BitFlags
+  fields: bigint
 }
 
 /**
@@ -762,7 +758,7 @@ export type MultisigCall = MultisigCall_as_multi_threshold_1 | MultisigCall_as_m
  */
 export interface MultisigCall_as_multi_threshold_1 {
   __kind: 'as_multi_threshold_1'
-  otherSignatories: AccountId32[]
+  otherSignatories: Uint8Array[]
   call: Call
 }
 
@@ -816,7 +812,7 @@ export interface MultisigCall_as_multi_threshold_1 {
 export interface MultisigCall_as_multi {
   __kind: 'as_multi'
   threshold: number
-  otherSignatories: AccountId32[]
+  otherSignatories: Uint8Array[]
   maybeTimepoint: (Timepoint | undefined)
   call: Uint8Array
   storeCall: boolean
@@ -863,7 +859,7 @@ export interface MultisigCall_as_multi {
 export interface MultisigCall_approve_as_multi {
   __kind: 'approve_as_multi'
   threshold: number
-  otherSignatories: AccountId32[]
+  otherSignatories: Uint8Array[]
   maybeTimepoint: (Timepoint | undefined)
   callHash: Uint8Array
   maxWeight: bigint
@@ -900,7 +896,7 @@ export interface MultisigCall_approve_as_multi {
 export interface MultisigCall_cancel_as_multi {
   __kind: 'cancel_as_multi'
   threshold: number
-  otherSignatories: AccountId32[]
+  otherSignatories: Uint8Array[]
   timepoint: Timepoint
   callHash: Uint8Array
 }
@@ -933,7 +929,7 @@ export interface ParachainSystemCall_sudo_send_upward_message {
 
 export interface ParachainSystemCall_authorize_upgrade {
   __kind: 'authorize_upgrade'
-  codeHash: H256
+  codeHash: Uint8Array
 }
 
 export interface ParachainSystemCall_enact_authorized_upgrade {
@@ -1348,7 +1344,7 @@ export interface DappsStakingCall_force_new_era {
  */
 export interface DappsStakingCall_developer_pre_approval {
   __kind: 'developer_pre_approval'
-  developer: AccountId32
+  developer: Uint8Array
 }
 
 /**
@@ -1998,7 +1994,7 @@ export type AuthorshipCall = AuthorshipCall_set_uncles
  */
 export interface AuthorshipCall_set_uncles {
   __kind: 'set_uncles'
-  newUncles: Header_208[]
+  newUncles: Header[]
 }
 
 /**
@@ -2008,7 +2004,7 @@ export type CollatorSelectionCall = CollatorSelectionCall_set_invulnerables | Co
 
 export interface CollatorSelectionCall_set_invulnerables {
   __kind: 'set_invulnerables'
-  new: AccountId32[]
+  new: Uint8Array[]
 }
 
 export interface CollatorSelectionCall_set_desired_candidates {
@@ -2203,7 +2199,7 @@ export type PolkadotXcmCall = PolkadotXcmCall_send | PolkadotXcmCall_teleport_as
 export interface PolkadotXcmCall_send {
   __kind: 'send'
   dest: VersionedMultiLocation
-  message: VersionedXcm_217
+  message: VersionedXcm
 }
 
 /**
@@ -2272,7 +2268,7 @@ export interface PolkadotXcmCall_reserve_transfer_assets {
  */
 export interface PolkadotXcmCall_execute {
   __kind: 'execute'
-  message: VersionedXcm_228
+  message: Type_228
   maxWeight: bigint
 }
 
@@ -2418,7 +2414,7 @@ export type EVMCall = EVMCall_withdraw | EVMCall_call | EVMCall_create | EVMCall
  */
 export interface EVMCall_withdraw {
   __kind: 'withdraw'
-  address: H160
+  address: Uint8Array
   value: bigint
 }
 
@@ -2427,15 +2423,15 @@ export interface EVMCall_withdraw {
  */
 export interface EVMCall_call {
   __kind: 'call'
-  source: H160
-  target: H160
+  source: Uint8Array
+  target: Uint8Array
   input: Uint8Array
-  value: U256
+  value: bigint[]
   gasLimit: bigint
-  maxFeePerGas: U256
-  maxPriorityFeePerGas: (U256 | undefined)
-  nonce: (U256 | undefined)
-  accessList: [H160, H256[]][]
+  maxFeePerGas: bigint[]
+  maxPriorityFeePerGas: (bigint[] | undefined)
+  nonce: (bigint[] | undefined)
+  accessList: [Uint8Array, Uint8Array[]][]
 }
 
 /**
@@ -2444,14 +2440,14 @@ export interface EVMCall_call {
  */
 export interface EVMCall_create {
   __kind: 'create'
-  source: H160
+  source: Uint8Array
   init: Uint8Array
-  value: U256
+  value: bigint[]
   gasLimit: bigint
-  maxFeePerGas: U256
-  maxPriorityFeePerGas: (U256 | undefined)
-  nonce: (U256 | undefined)
-  accessList: [H160, H256[]][]
+  maxFeePerGas: bigint[]
+  maxPriorityFeePerGas: (bigint[] | undefined)
+  nonce: (bigint[] | undefined)
+  accessList: [Uint8Array, Uint8Array[]][]
 }
 
 /**
@@ -2459,15 +2455,15 @@ export interface EVMCall_create {
  */
 export interface EVMCall_create2 {
   __kind: 'create2'
-  source: H160
+  source: Uint8Array
   init: Uint8Array
-  salt: H256
-  value: U256
+  salt: Uint8Array
+  value: bigint[]
   gasLimit: bigint
-  maxFeePerGas: U256
-  maxPriorityFeePerGas: (U256 | undefined)
-  nonce: (U256 | undefined)
-  accessList: [H160, H256[]][]
+  maxFeePerGas: bigint[]
+  maxPriorityFeePerGas: (bigint[] | undefined)
+  nonce: (bigint[] | undefined)
+  accessList: [Uint8Array, Uint8Array[]][]
 }
 
 /**
@@ -2475,7 +2471,7 @@ export interface EVMCall_create2 {
  */
 export interface EVMCall_hotfix_inc_account_sufficients {
   __kind: 'hotfix_inc_account_sufficients'
-  addresses: H160[]
+  addresses: Uint8Array[]
 }
 
 /**
@@ -2507,7 +2503,7 @@ export type EthCallCall = EthCallCall_call
 export interface EthCallCall_call {
   __kind: 'call'
   call: Call
-  signer: AccountId32
+  signer: Uint8Array
   signature: Uint8Array
   nonce: number
 }
@@ -2519,7 +2515,7 @@ export type BaseFeeCall = BaseFeeCall_set_base_fee_per_gas | BaseFeeCall_set_is_
 
 export interface BaseFeeCall_set_base_fee_per_gas {
   __kind: 'set_base_fee_per_gas'
-  fee: U256
+  fee: bigint[]
 }
 
 export interface BaseFeeCall_set_is_active {
@@ -2529,7 +2525,7 @@ export interface BaseFeeCall_set_is_active {
 
 export interface BaseFeeCall_set_elasticity {
   __kind: 'set_elasticity'
-  elasticity: Permill
+  elasticity: number
 }
 
 /**
@@ -2608,54 +2604,52 @@ export interface SudoCall_sudo_as {
   call: Call
 }
 
-export type RawOrigin_262 = RawOrigin_262_Root | RawOrigin_262_Signed | RawOrigin_262_None
+export type RawOrigin = RawOrigin_Root | RawOrigin_Signed | RawOrigin_None
 
-export interface RawOrigin_262_Root {
+export interface RawOrigin_Root {
   __kind: 'Root'
 }
 
-export interface RawOrigin_262_Signed {
+export interface RawOrigin_Signed {
   __kind: 'Signed'
-  value: AccountId32
+  value: Uint8Array
 }
 
-export interface RawOrigin_262_None {
+export interface RawOrigin_None {
   __kind: 'None'
 }
 
-export type Origin_263 = Origin_263_Xcm | Origin_263_Response
+export type Origin = Origin_Xcm | Origin_Response
 
-export interface Origin_263_Xcm {
+export interface Origin_Xcm {
   __kind: 'Xcm'
   value: V1MultiLocation
 }
 
-export interface Origin_263_Response {
+export interface Origin_Response {
   __kind: 'Response'
   value: V1MultiLocation
 }
 
-export type Origin_264 = Origin_264_Relay | Origin_264_SiblingParachain
+export type Type_264 = Type_264_Relay | Type_264_SiblingParachain
 
-export interface Origin_264_Relay {
+export interface Type_264_Relay {
   __kind: 'Relay'
 }
 
-export interface Origin_264_SiblingParachain {
+export interface Type_264_SiblingParachain {
   __kind: 'SiblingParachain'
-  value: Id
+  value: number
 }
 
-export type RawOrigin_265 = RawOrigin_265_EthereumTransaction
+export type Type_265 = Type_265_EthereumTransaction
 
-export interface RawOrigin_265_EthereumTransaction {
+export interface Type_265_EthereumTransaction {
   __kind: 'EthereumTransaction'
-  value: H160
+  value: Uint8Array
 }
 
 export type Void = never
-
-export type Perbill = number
 
 export interface IdentityInfo {
   additional: [Data, Data][]
@@ -2860,8 +2854,6 @@ export interface Data_ShaThree256 {
   value: Uint8Array
 }
 
-export type BitFlags = bigint
-
 export type Judgement = Judgement_Unknown | Judgement_FeePaid | Judgement_Reasonable | Judgement_KnownGood | Judgement_OutOfDate | Judgement_LowQuality | Judgement_Erroneous
 
 export interface Judgement_Unknown {
@@ -2902,10 +2894,8 @@ export interface ParachainInherentData {
   validationData: V2PersistedValidationData
   relayChainState: StorageProof
   downwardMessages: InboundDownwardMessage[]
-  horizontalMessages: [Id, InboundHrmpMessage[]][]
+  horizontalMessages: [number, InboundHrmpMessage[]][]
 }
-
-export type H256 = Uint8Array
 
 export interface VestingInfo {
   locked: bigint
@@ -2944,16 +2934,16 @@ export interface DestroyWitness {
   approvals: number
 }
 
-export interface Header_208 {
-  parentHash: H256
+export interface Header {
+  parentHash: Uint8Array
   number: number
-  stateRoot: H256
-  extrinsicsRoot: H256
+  stateRoot: Uint8Array
+  extrinsicsRoot: Uint8Array
   digest: Digest
 }
 
 export interface SessionKeys {
-  aura: Public
+  aura: Uint8Array
 }
 
 export type VersionedMultiLocation = VersionedMultiLocation_V0 | VersionedMultiLocation_V1
@@ -2968,21 +2958,21 @@ export interface VersionedMultiLocation_V1 {
   value: V1MultiLocation
 }
 
-export type VersionedXcm_217 = VersionedXcm_217_V0 | VersionedXcm_217_V1 | VersionedXcm_217_V2
+export type VersionedXcm = VersionedXcm_V0 | VersionedXcm_V1 | VersionedXcm_V2
 
-export interface VersionedXcm_217_V0 {
+export interface VersionedXcm_V0 {
   __kind: 'V0'
-  value: V0Xcm_218
+  value: V0Xcm
 }
 
-export interface VersionedXcm_217_V1 {
+export interface VersionedXcm_V1 {
   __kind: 'V1'
-  value: V1Xcm_223
+  value: V1Xcm
 }
 
-export interface VersionedXcm_217_V2 {
+export interface VersionedXcm_V2 {
   __kind: 'V2'
-  value: V2Instruction_68[]
+  value: V2Instruction[]
 }
 
 export type VersionedMultiAssets = VersionedMultiAssets_V0 | VersionedMultiAssets_V1
@@ -2994,24 +2984,24 @@ export interface VersionedMultiAssets_V0 {
 
 export interface VersionedMultiAssets_V1 {
   __kind: 'V1'
-  value: V1MultiAssets
+  value: V1MultiAsset[]
 }
 
-export type VersionedXcm_228 = VersionedXcm_228_V0 | VersionedXcm_228_V1 | VersionedXcm_228_V2
+export type Type_228 = Type_228_V0 | Type_228_V1 | Type_228_V2
 
-export interface VersionedXcm_228_V0 {
+export interface Type_228_V0 {
   __kind: 'V0'
-  value: V0Xcm_229
+  value: Type_229
 }
 
-export interface VersionedXcm_228_V1 {
+export interface Type_228_V1 {
   __kind: 'V1'
-  value: V1Xcm_234
+  value: Type_234
 }
 
-export interface VersionedXcm_228_V2 {
+export interface Type_228_V2 {
   __kind: 'V2'
-  value: V2Instruction_240[]
+  value: Type_240[]
 }
 
 export interface V1MultiLocation {
@@ -3030,8 +3020,6 @@ export interface V2WeightLimit_Limited {
   value: bigint
 }
 
-export type U256 = bigint[]
-
 export type TransactionV2 = TransactionV2_Legacy | TransactionV2_EIP2930 | TransactionV2_EIP1559
 
 export interface TransactionV2_Legacy {
@@ -3049,19 +3037,15 @@ export interface TransactionV2_EIP1559 {
   value: EIP1559Transaction
 }
 
-export type Permill = number
-
-export type Id = number
-
 export interface V2PersistedValidationData {
-  parentHead: HeadData
+  parentHead: Uint8Array
   relayParentNumber: number
-  relayParentStorageRoot: H256
+  relayParentStorageRoot: Uint8Array
   maxPovSize: number
 }
 
 export interface StorageProof {
-  trieNodes: BTreeSet
+  trieNodes: Uint8Array[]
 }
 
 export interface InboundDownwardMessage {
@@ -3077,8 +3061,6 @@ export interface InboundHrmpMessage {
 export interface Digest {
   logs: DigestItem[]
 }
-
-export type Public = Uint8Array
 
 export type V0MultiLocation = V0MultiLocation_Null | V0MultiLocation_X1 | V0MultiLocation_X2 | V0MultiLocation_X3 | V0MultiLocation_X4 | V0MultiLocation_X5 | V0MultiLocation_X6 | V0MultiLocation_X7 | V0MultiLocation_X8
 
@@ -3126,273 +3108,273 @@ export interface V0MultiLocation_X8 {
   value: [V0Junction, V0Junction, V0Junction, V0Junction, V0Junction, V0Junction, V0Junction, V0Junction]
 }
 
-export type V0Xcm_218 = V0Xcm_218_WithdrawAsset | V0Xcm_218_ReserveAssetDeposit | V0Xcm_218_TeleportAsset | V0Xcm_218_QueryResponse | V0Xcm_218_TransferAsset | V0Xcm_218_TransferReserveAsset | V0Xcm_218_Transact | V0Xcm_218_HrmpNewChannelOpenRequest | V0Xcm_218_HrmpChannelAccepted | V0Xcm_218_HrmpChannelClosing | V0Xcm_218_RelayedFrom
+export type V0Xcm = V0Xcm_WithdrawAsset | V0Xcm_ReserveAssetDeposit | V0Xcm_TeleportAsset | V0Xcm_QueryResponse | V0Xcm_TransferAsset | V0Xcm_TransferReserveAsset | V0Xcm_Transact | V0Xcm_HrmpNewChannelOpenRequest | V0Xcm_HrmpChannelAccepted | V0Xcm_HrmpChannelClosing | V0Xcm_RelayedFrom
 
-export interface V0Xcm_218_WithdrawAsset {
+export interface V0Xcm_WithdrawAsset {
   __kind: 'WithdrawAsset'
   assets: V0MultiAsset[]
-  effects: V0Order_220[]
+  effects: V0Order[]
 }
 
-export interface V0Xcm_218_ReserveAssetDeposit {
+export interface V0Xcm_ReserveAssetDeposit {
   __kind: 'ReserveAssetDeposit'
   assets: V0MultiAsset[]
-  effects: V0Order_220[]
+  effects: V0Order[]
 }
 
-export interface V0Xcm_218_TeleportAsset {
+export interface V0Xcm_TeleportAsset {
   __kind: 'TeleportAsset'
   assets: V0MultiAsset[]
-  effects: V0Order_220[]
+  effects: V0Order[]
 }
 
-export interface V0Xcm_218_QueryResponse {
+export interface V0Xcm_QueryResponse {
   __kind: 'QueryResponse'
   queryId: bigint
   response: V0Response
 }
 
-export interface V0Xcm_218_TransferAsset {
+export interface V0Xcm_TransferAsset {
   __kind: 'TransferAsset'
   assets: V0MultiAsset[]
   dest: V0MultiLocation
 }
 
-export interface V0Xcm_218_TransferReserveAsset {
+export interface V0Xcm_TransferReserveAsset {
   __kind: 'TransferReserveAsset'
   assets: V0MultiAsset[]
   dest: V0MultiLocation
-  effects: V0Order_220[]
+  effects: V0Order[]
 }
 
-export interface V0Xcm_218_Transact {
+export interface V0Xcm_Transact {
   __kind: 'Transact'
   originType: V0OriginKind
   requireWeightAtMost: bigint
   call: DoubleEncoded
 }
 
-export interface V0Xcm_218_HrmpNewChannelOpenRequest {
+export interface V0Xcm_HrmpNewChannelOpenRequest {
   __kind: 'HrmpNewChannelOpenRequest'
   sender: number
   maxMessageSize: number
   maxCapacity: number
 }
 
-export interface V0Xcm_218_HrmpChannelAccepted {
+export interface V0Xcm_HrmpChannelAccepted {
   __kind: 'HrmpChannelAccepted'
   recipient: number
 }
 
-export interface V0Xcm_218_HrmpChannelClosing {
+export interface V0Xcm_HrmpChannelClosing {
   __kind: 'HrmpChannelClosing'
   initiator: number
   sender: number
   recipient: number
 }
 
-export interface V0Xcm_218_RelayedFrom {
+export interface V0Xcm_RelayedFrom {
   __kind: 'RelayedFrom'
   who: V0MultiLocation
-  message: V0Xcm_218
+  message: V0Xcm
 }
 
-export type V1Xcm_223 = V1Xcm_223_WithdrawAsset | V1Xcm_223_ReserveAssetDeposited | V1Xcm_223_ReceiveTeleportedAsset | V1Xcm_223_QueryResponse | V1Xcm_223_TransferAsset | V1Xcm_223_TransferReserveAsset | V1Xcm_223_Transact | V1Xcm_223_HrmpNewChannelOpenRequest | V1Xcm_223_HrmpChannelAccepted | V1Xcm_223_HrmpChannelClosing | V1Xcm_223_RelayedFrom | V1Xcm_223_SubscribeVersion | V1Xcm_223_UnsubscribeVersion
+export type V1Xcm = V1Xcm_WithdrawAsset | V1Xcm_ReserveAssetDeposited | V1Xcm_ReceiveTeleportedAsset | V1Xcm_QueryResponse | V1Xcm_TransferAsset | V1Xcm_TransferReserveAsset | V1Xcm_Transact | V1Xcm_HrmpNewChannelOpenRequest | V1Xcm_HrmpChannelAccepted | V1Xcm_HrmpChannelClosing | V1Xcm_RelayedFrom | V1Xcm_SubscribeVersion | V1Xcm_UnsubscribeVersion
 
-export interface V1Xcm_223_WithdrawAsset {
+export interface V1Xcm_WithdrawAsset {
   __kind: 'WithdrawAsset'
-  assets: V1MultiAssets
-  effects: V1Order_225[]
+  assets: V1MultiAsset[]
+  effects: V1Order[]
 }
 
-export interface V1Xcm_223_ReserveAssetDeposited {
+export interface V1Xcm_ReserveAssetDeposited {
   __kind: 'ReserveAssetDeposited'
-  assets: V1MultiAssets
-  effects: V1Order_225[]
+  assets: V1MultiAsset[]
+  effects: V1Order[]
 }
 
-export interface V1Xcm_223_ReceiveTeleportedAsset {
+export interface V1Xcm_ReceiveTeleportedAsset {
   __kind: 'ReceiveTeleportedAsset'
-  assets: V1MultiAssets
-  effects: V1Order_225[]
+  assets: V1MultiAsset[]
+  effects: V1Order[]
 }
 
-export interface V1Xcm_223_QueryResponse {
+export interface V1Xcm_QueryResponse {
   __kind: 'QueryResponse'
   queryId: bigint
   response: V1Response
 }
 
-export interface V1Xcm_223_TransferAsset {
+export interface V1Xcm_TransferAsset {
   __kind: 'TransferAsset'
-  assets: V1MultiAssets
+  assets: V1MultiAsset[]
   beneficiary: V1MultiLocation
 }
 
-export interface V1Xcm_223_TransferReserveAsset {
+export interface V1Xcm_TransferReserveAsset {
   __kind: 'TransferReserveAsset'
-  assets: V1MultiAssets
+  assets: V1MultiAsset[]
   dest: V1MultiLocation
-  effects: V1Order_225[]
+  effects: V1Order[]
 }
 
-export interface V1Xcm_223_Transact {
+export interface V1Xcm_Transact {
   __kind: 'Transact'
   originType: V0OriginKind
   requireWeightAtMost: bigint
   call: DoubleEncoded
 }
 
-export interface V1Xcm_223_HrmpNewChannelOpenRequest {
+export interface V1Xcm_HrmpNewChannelOpenRequest {
   __kind: 'HrmpNewChannelOpenRequest'
   sender: number
   maxMessageSize: number
   maxCapacity: number
 }
 
-export interface V1Xcm_223_HrmpChannelAccepted {
+export interface V1Xcm_HrmpChannelAccepted {
   __kind: 'HrmpChannelAccepted'
   recipient: number
 }
 
-export interface V1Xcm_223_HrmpChannelClosing {
+export interface V1Xcm_HrmpChannelClosing {
   __kind: 'HrmpChannelClosing'
   initiator: number
   sender: number
   recipient: number
 }
 
-export interface V1Xcm_223_RelayedFrom {
+export interface V1Xcm_RelayedFrom {
   __kind: 'RelayedFrom'
   who: V1Junctions
-  message: V1Xcm_223
+  message: V1Xcm
 }
 
-export interface V1Xcm_223_SubscribeVersion {
+export interface V1Xcm_SubscribeVersion {
   __kind: 'SubscribeVersion'
   queryId: bigint
   maxResponseWeight: bigint
 }
 
-export interface V1Xcm_223_UnsubscribeVersion {
+export interface V1Xcm_UnsubscribeVersion {
   __kind: 'UnsubscribeVersion'
 }
 
-export type V2Instruction_68 = V2Instruction_68_WithdrawAsset | V2Instruction_68_ReserveAssetDeposited | V2Instruction_68_ReceiveTeleportedAsset | V2Instruction_68_QueryResponse | V2Instruction_68_TransferAsset | V2Instruction_68_TransferReserveAsset | V2Instruction_68_Transact | V2Instruction_68_HrmpNewChannelOpenRequest | V2Instruction_68_HrmpChannelAccepted | V2Instruction_68_HrmpChannelClosing | V2Instruction_68_ClearOrigin | V2Instruction_68_DescendOrigin | V2Instruction_68_ReportError | V2Instruction_68_DepositAsset | V2Instruction_68_DepositReserveAsset | V2Instruction_68_ExchangeAsset | V2Instruction_68_InitiateReserveWithdraw | V2Instruction_68_InitiateTeleport | V2Instruction_68_QueryHolding | V2Instruction_68_BuyExecution | V2Instruction_68_RefundSurplus | V2Instruction_68_SetErrorHandler | V2Instruction_68_SetAppendix | V2Instruction_68_ClearError | V2Instruction_68_ClaimAsset | V2Instruction_68_Trap | V2Instruction_68_SubscribeVersion | V2Instruction_68_UnsubscribeVersion
+export type V2Instruction = V2Instruction_WithdrawAsset | V2Instruction_ReserveAssetDeposited | V2Instruction_ReceiveTeleportedAsset | V2Instruction_QueryResponse | V2Instruction_TransferAsset | V2Instruction_TransferReserveAsset | V2Instruction_Transact | V2Instruction_HrmpNewChannelOpenRequest | V2Instruction_HrmpChannelAccepted | V2Instruction_HrmpChannelClosing | V2Instruction_ClearOrigin | V2Instruction_DescendOrigin | V2Instruction_ReportError | V2Instruction_DepositAsset | V2Instruction_DepositReserveAsset | V2Instruction_ExchangeAsset | V2Instruction_InitiateReserveWithdraw | V2Instruction_InitiateTeleport | V2Instruction_QueryHolding | V2Instruction_BuyExecution | V2Instruction_RefundSurplus | V2Instruction_SetErrorHandler | V2Instruction_SetAppendix | V2Instruction_ClearError | V2Instruction_ClaimAsset | V2Instruction_Trap | V2Instruction_SubscribeVersion | V2Instruction_UnsubscribeVersion
 
-export interface V2Instruction_68_WithdrawAsset {
+export interface V2Instruction_WithdrawAsset {
   __kind: 'WithdrawAsset'
-  value: V1MultiAssets
+  value: V1MultiAsset[]
 }
 
-export interface V2Instruction_68_ReserveAssetDeposited {
+export interface V2Instruction_ReserveAssetDeposited {
   __kind: 'ReserveAssetDeposited'
-  value: V1MultiAssets
+  value: V1MultiAsset[]
 }
 
-export interface V2Instruction_68_ReceiveTeleportedAsset {
+export interface V2Instruction_ReceiveTeleportedAsset {
   __kind: 'ReceiveTeleportedAsset'
-  value: V1MultiAssets
+  value: V1MultiAsset[]
 }
 
-export interface V2Instruction_68_QueryResponse {
+export interface V2Instruction_QueryResponse {
   __kind: 'QueryResponse'
   queryId: bigint
   response: V2Response
   maxWeight: bigint
 }
 
-export interface V2Instruction_68_TransferAsset {
+export interface V2Instruction_TransferAsset {
   __kind: 'TransferAsset'
-  assets: V1MultiAssets
+  assets: V1MultiAsset[]
   beneficiary: V1MultiLocation
 }
 
-export interface V2Instruction_68_TransferReserveAsset {
+export interface V2Instruction_TransferReserveAsset {
   __kind: 'TransferReserveAsset'
-  assets: V1MultiAssets
+  assets: V1MultiAsset[]
   dest: V1MultiLocation
-  xcm: V2Instruction_68[]
+  xcm: V2Instruction[]
 }
 
-export interface V2Instruction_68_Transact {
+export interface V2Instruction_Transact {
   __kind: 'Transact'
   originType: V0OriginKind
   requireWeightAtMost: bigint
   call: DoubleEncoded
 }
 
-export interface V2Instruction_68_HrmpNewChannelOpenRequest {
+export interface V2Instruction_HrmpNewChannelOpenRequest {
   __kind: 'HrmpNewChannelOpenRequest'
   sender: number
   maxMessageSize: number
   maxCapacity: number
 }
 
-export interface V2Instruction_68_HrmpChannelAccepted {
+export interface V2Instruction_HrmpChannelAccepted {
   __kind: 'HrmpChannelAccepted'
   recipient: number
 }
 
-export interface V2Instruction_68_HrmpChannelClosing {
+export interface V2Instruction_HrmpChannelClosing {
   __kind: 'HrmpChannelClosing'
   initiator: number
   sender: number
   recipient: number
 }
 
-export interface V2Instruction_68_ClearOrigin {
+export interface V2Instruction_ClearOrigin {
   __kind: 'ClearOrigin'
 }
 
-export interface V2Instruction_68_DescendOrigin {
+export interface V2Instruction_DescendOrigin {
   __kind: 'DescendOrigin'
   value: V1Junctions
 }
 
-export interface V2Instruction_68_ReportError {
+export interface V2Instruction_ReportError {
   __kind: 'ReportError'
   queryId: bigint
   dest: V1MultiLocation
   maxResponseWeight: bigint
 }
 
-export interface V2Instruction_68_DepositAsset {
+export interface V2Instruction_DepositAsset {
   __kind: 'DepositAsset'
   assets: V1MultiAssetFilter
   maxAssets: number
   beneficiary: V1MultiLocation
 }
 
-export interface V2Instruction_68_DepositReserveAsset {
+export interface V2Instruction_DepositReserveAsset {
   __kind: 'DepositReserveAsset'
   assets: V1MultiAssetFilter
   maxAssets: number
   dest: V1MultiLocation
-  xcm: V2Instruction_68[]
+  xcm: V2Instruction[]
 }
 
-export interface V2Instruction_68_ExchangeAsset {
+export interface V2Instruction_ExchangeAsset {
   __kind: 'ExchangeAsset'
   give: V1MultiAssetFilter
-  receive: V1MultiAssets
+  receive: V1MultiAsset[]
 }
 
-export interface V2Instruction_68_InitiateReserveWithdraw {
+export interface V2Instruction_InitiateReserveWithdraw {
   __kind: 'InitiateReserveWithdraw'
   assets: V1MultiAssetFilter
   reserve: V1MultiLocation
-  xcm: V2Instruction_68[]
+  xcm: V2Instruction[]
 }
 
-export interface V2Instruction_68_InitiateTeleport {
+export interface V2Instruction_InitiateTeleport {
   __kind: 'InitiateTeleport'
   assets: V1MultiAssetFilter
   dest: V1MultiLocation
-  xcm: V2Instruction_68[]
+  xcm: V2Instruction[]
 }
 
-export interface V2Instruction_68_QueryHolding {
+export interface V2Instruction_QueryHolding {
   __kind: 'QueryHolding'
   queryId: bigint
   dest: V1MultiLocation
@@ -3400,48 +3382,48 @@ export interface V2Instruction_68_QueryHolding {
   maxResponseWeight: bigint
 }
 
-export interface V2Instruction_68_BuyExecution {
+export interface V2Instruction_BuyExecution {
   __kind: 'BuyExecution'
   fees: V1MultiAsset
   weightLimit: V2WeightLimit
 }
 
-export interface V2Instruction_68_RefundSurplus {
+export interface V2Instruction_RefundSurplus {
   __kind: 'RefundSurplus'
 }
 
-export interface V2Instruction_68_SetErrorHandler {
+export interface V2Instruction_SetErrorHandler {
   __kind: 'SetErrorHandler'
-  value: V2Instruction_68[]
+  value: V2Instruction[]
 }
 
-export interface V2Instruction_68_SetAppendix {
+export interface V2Instruction_SetAppendix {
   __kind: 'SetAppendix'
-  value: V2Instruction_68[]
+  value: V2Instruction[]
 }
 
-export interface V2Instruction_68_ClearError {
+export interface V2Instruction_ClearError {
   __kind: 'ClearError'
 }
 
-export interface V2Instruction_68_ClaimAsset {
+export interface V2Instruction_ClaimAsset {
   __kind: 'ClaimAsset'
-  assets: V1MultiAssets
+  assets: V1MultiAsset[]
   ticket: V1MultiLocation
 }
 
-export interface V2Instruction_68_Trap {
+export interface V2Instruction_Trap {
   __kind: 'Trap'
   value: bigint
 }
 
-export interface V2Instruction_68_SubscribeVersion {
+export interface V2Instruction_SubscribeVersion {
   __kind: 'SubscribeVersion'
   queryId: bigint
   maxResponseWeight: bigint
 }
 
-export interface V2Instruction_68_UnsubscribeVersion {
+export interface V2Instruction_UnsubscribeVersion {
   __kind: 'UnsubscribeVersion'
 }
 
@@ -3512,275 +3494,273 @@ export interface V1MultiAsset {
   fun: V1Fungibility
 }
 
-export type V1MultiAssets = V1MultiAsset[]
+export type Type_229 = Type_229_WithdrawAsset | Type_229_ReserveAssetDeposit | Type_229_TeleportAsset | Type_229_QueryResponse | Type_229_TransferAsset | Type_229_TransferReserveAsset | Type_229_Transact | Type_229_HrmpNewChannelOpenRequest | Type_229_HrmpChannelAccepted | Type_229_HrmpChannelClosing | Type_229_RelayedFrom
 
-export type V0Xcm_229 = V0Xcm_229_WithdrawAsset | V0Xcm_229_ReserveAssetDeposit | V0Xcm_229_TeleportAsset | V0Xcm_229_QueryResponse | V0Xcm_229_TransferAsset | V0Xcm_229_TransferReserveAsset | V0Xcm_229_Transact | V0Xcm_229_HrmpNewChannelOpenRequest | V0Xcm_229_HrmpChannelAccepted | V0Xcm_229_HrmpChannelClosing | V0Xcm_229_RelayedFrom
-
-export interface V0Xcm_229_WithdrawAsset {
+export interface Type_229_WithdrawAsset {
   __kind: 'WithdrawAsset'
   assets: V0MultiAsset[]
-  effects: V0Order_231[]
+  effects: Type_231[]
 }
 
-export interface V0Xcm_229_ReserveAssetDeposit {
+export interface Type_229_ReserveAssetDeposit {
   __kind: 'ReserveAssetDeposit'
   assets: V0MultiAsset[]
-  effects: V0Order_231[]
+  effects: Type_231[]
 }
 
-export interface V0Xcm_229_TeleportAsset {
+export interface Type_229_TeleportAsset {
   __kind: 'TeleportAsset'
   assets: V0MultiAsset[]
-  effects: V0Order_231[]
+  effects: Type_231[]
 }
 
-export interface V0Xcm_229_QueryResponse {
+export interface Type_229_QueryResponse {
   __kind: 'QueryResponse'
   queryId: bigint
   response: V0Response
 }
 
-export interface V0Xcm_229_TransferAsset {
+export interface Type_229_TransferAsset {
   __kind: 'TransferAsset'
   assets: V0MultiAsset[]
   dest: V0MultiLocation
 }
 
-export interface V0Xcm_229_TransferReserveAsset {
+export interface Type_229_TransferReserveAsset {
   __kind: 'TransferReserveAsset'
   assets: V0MultiAsset[]
   dest: V0MultiLocation
-  effects: V0Order_220[]
+  effects: V0Order[]
 }
 
-export interface V0Xcm_229_Transact {
+export interface Type_229_Transact {
   __kind: 'Transact'
   originType: V0OriginKind
   requireWeightAtMost: bigint
   call: DoubleEncoded
 }
 
-export interface V0Xcm_229_HrmpNewChannelOpenRequest {
+export interface Type_229_HrmpNewChannelOpenRequest {
   __kind: 'HrmpNewChannelOpenRequest'
   sender: number
   maxMessageSize: number
   maxCapacity: number
 }
 
-export interface V0Xcm_229_HrmpChannelAccepted {
+export interface Type_229_HrmpChannelAccepted {
   __kind: 'HrmpChannelAccepted'
   recipient: number
 }
 
-export interface V0Xcm_229_HrmpChannelClosing {
+export interface Type_229_HrmpChannelClosing {
   __kind: 'HrmpChannelClosing'
   initiator: number
   sender: number
   recipient: number
 }
 
-export interface V0Xcm_229_RelayedFrom {
+export interface Type_229_RelayedFrom {
   __kind: 'RelayedFrom'
   who: V0MultiLocation
-  message: V0Xcm_229
+  message: Type_229
 }
 
-export type V1Xcm_234 = V1Xcm_234_WithdrawAsset | V1Xcm_234_ReserveAssetDeposited | V1Xcm_234_ReceiveTeleportedAsset | V1Xcm_234_QueryResponse | V1Xcm_234_TransferAsset | V1Xcm_234_TransferReserveAsset | V1Xcm_234_Transact | V1Xcm_234_HrmpNewChannelOpenRequest | V1Xcm_234_HrmpChannelAccepted | V1Xcm_234_HrmpChannelClosing | V1Xcm_234_RelayedFrom | V1Xcm_234_SubscribeVersion | V1Xcm_234_UnsubscribeVersion
+export type Type_234 = Type_234_WithdrawAsset | Type_234_ReserveAssetDeposited | Type_234_ReceiveTeleportedAsset | Type_234_QueryResponse | Type_234_TransferAsset | Type_234_TransferReserveAsset | Type_234_Transact | Type_234_HrmpNewChannelOpenRequest | Type_234_HrmpChannelAccepted | Type_234_HrmpChannelClosing | Type_234_RelayedFrom | Type_234_SubscribeVersion | Type_234_UnsubscribeVersion
 
-export interface V1Xcm_234_WithdrawAsset {
+export interface Type_234_WithdrawAsset {
   __kind: 'WithdrawAsset'
-  assets: V1MultiAssets
-  effects: V1Order_236[]
+  assets: V1MultiAsset[]
+  effects: Type_236[]
 }
 
-export interface V1Xcm_234_ReserveAssetDeposited {
+export interface Type_234_ReserveAssetDeposited {
   __kind: 'ReserveAssetDeposited'
-  assets: V1MultiAssets
-  effects: V1Order_236[]
+  assets: V1MultiAsset[]
+  effects: Type_236[]
 }
 
-export interface V1Xcm_234_ReceiveTeleportedAsset {
+export interface Type_234_ReceiveTeleportedAsset {
   __kind: 'ReceiveTeleportedAsset'
-  assets: V1MultiAssets
-  effects: V1Order_236[]
+  assets: V1MultiAsset[]
+  effects: Type_236[]
 }
 
-export interface V1Xcm_234_QueryResponse {
+export interface Type_234_QueryResponse {
   __kind: 'QueryResponse'
   queryId: bigint
   response: V1Response
 }
 
-export interface V1Xcm_234_TransferAsset {
+export interface Type_234_TransferAsset {
   __kind: 'TransferAsset'
-  assets: V1MultiAssets
+  assets: V1MultiAsset[]
   beneficiary: V1MultiLocation
 }
 
-export interface V1Xcm_234_TransferReserveAsset {
+export interface Type_234_TransferReserveAsset {
   __kind: 'TransferReserveAsset'
-  assets: V1MultiAssets
+  assets: V1MultiAsset[]
   dest: V1MultiLocation
-  effects: V1Order_225[]
+  effects: V1Order[]
 }
 
-export interface V1Xcm_234_Transact {
+export interface Type_234_Transact {
   __kind: 'Transact'
   originType: V0OriginKind
   requireWeightAtMost: bigint
   call: DoubleEncoded
 }
 
-export interface V1Xcm_234_HrmpNewChannelOpenRequest {
+export interface Type_234_HrmpNewChannelOpenRequest {
   __kind: 'HrmpNewChannelOpenRequest'
   sender: number
   maxMessageSize: number
   maxCapacity: number
 }
 
-export interface V1Xcm_234_HrmpChannelAccepted {
+export interface Type_234_HrmpChannelAccepted {
   __kind: 'HrmpChannelAccepted'
   recipient: number
 }
 
-export interface V1Xcm_234_HrmpChannelClosing {
+export interface Type_234_HrmpChannelClosing {
   __kind: 'HrmpChannelClosing'
   initiator: number
   sender: number
   recipient: number
 }
 
-export interface V1Xcm_234_RelayedFrom {
+export interface Type_234_RelayedFrom {
   __kind: 'RelayedFrom'
   who: V1Junctions
-  message: V1Xcm_234
+  message: Type_234
 }
 
-export interface V1Xcm_234_SubscribeVersion {
+export interface Type_234_SubscribeVersion {
   __kind: 'SubscribeVersion'
   queryId: bigint
   maxResponseWeight: bigint
 }
 
-export interface V1Xcm_234_UnsubscribeVersion {
+export interface Type_234_UnsubscribeVersion {
   __kind: 'UnsubscribeVersion'
 }
 
-export type V2Instruction_240 = V2Instruction_240_WithdrawAsset | V2Instruction_240_ReserveAssetDeposited | V2Instruction_240_ReceiveTeleportedAsset | V2Instruction_240_QueryResponse | V2Instruction_240_TransferAsset | V2Instruction_240_TransferReserveAsset | V2Instruction_240_Transact | V2Instruction_240_HrmpNewChannelOpenRequest | V2Instruction_240_HrmpChannelAccepted | V2Instruction_240_HrmpChannelClosing | V2Instruction_240_ClearOrigin | V2Instruction_240_DescendOrigin | V2Instruction_240_ReportError | V2Instruction_240_DepositAsset | V2Instruction_240_DepositReserveAsset | V2Instruction_240_ExchangeAsset | V2Instruction_240_InitiateReserveWithdraw | V2Instruction_240_InitiateTeleport | V2Instruction_240_QueryHolding | V2Instruction_240_BuyExecution | V2Instruction_240_RefundSurplus | V2Instruction_240_SetErrorHandler | V2Instruction_240_SetAppendix | V2Instruction_240_ClearError | V2Instruction_240_ClaimAsset | V2Instruction_240_Trap | V2Instruction_240_SubscribeVersion | V2Instruction_240_UnsubscribeVersion
+export type Type_240 = Type_240_WithdrawAsset | Type_240_ReserveAssetDeposited | Type_240_ReceiveTeleportedAsset | Type_240_QueryResponse | Type_240_TransferAsset | Type_240_TransferReserveAsset | Type_240_Transact | Type_240_HrmpNewChannelOpenRequest | Type_240_HrmpChannelAccepted | Type_240_HrmpChannelClosing | Type_240_ClearOrigin | Type_240_DescendOrigin | Type_240_ReportError | Type_240_DepositAsset | Type_240_DepositReserveAsset | Type_240_ExchangeAsset | Type_240_InitiateReserveWithdraw | Type_240_InitiateTeleport | Type_240_QueryHolding | Type_240_BuyExecution | Type_240_RefundSurplus | Type_240_SetErrorHandler | Type_240_SetAppendix | Type_240_ClearError | Type_240_ClaimAsset | Type_240_Trap | Type_240_SubscribeVersion | Type_240_UnsubscribeVersion
 
-export interface V2Instruction_240_WithdrawAsset {
+export interface Type_240_WithdrawAsset {
   __kind: 'WithdrawAsset'
-  value: V1MultiAssets
+  value: V1MultiAsset[]
 }
 
-export interface V2Instruction_240_ReserveAssetDeposited {
+export interface Type_240_ReserveAssetDeposited {
   __kind: 'ReserveAssetDeposited'
-  value: V1MultiAssets
+  value: V1MultiAsset[]
 }
 
-export interface V2Instruction_240_ReceiveTeleportedAsset {
+export interface Type_240_ReceiveTeleportedAsset {
   __kind: 'ReceiveTeleportedAsset'
-  value: V1MultiAssets
+  value: V1MultiAsset[]
 }
 
-export interface V2Instruction_240_QueryResponse {
+export interface Type_240_QueryResponse {
   __kind: 'QueryResponse'
   queryId: bigint
   response: V2Response
   maxWeight: bigint
 }
 
-export interface V2Instruction_240_TransferAsset {
+export interface Type_240_TransferAsset {
   __kind: 'TransferAsset'
-  assets: V1MultiAssets
+  assets: V1MultiAsset[]
   beneficiary: V1MultiLocation
 }
 
-export interface V2Instruction_240_TransferReserveAsset {
+export interface Type_240_TransferReserveAsset {
   __kind: 'TransferReserveAsset'
-  assets: V1MultiAssets
+  assets: V1MultiAsset[]
   dest: V1MultiLocation
-  xcm: V2Instruction_68[]
+  xcm: V2Instruction[]
 }
 
-export interface V2Instruction_240_Transact {
+export interface Type_240_Transact {
   __kind: 'Transact'
   originType: V0OriginKind
   requireWeightAtMost: bigint
   call: DoubleEncoded
 }
 
-export interface V2Instruction_240_HrmpNewChannelOpenRequest {
+export interface Type_240_HrmpNewChannelOpenRequest {
   __kind: 'HrmpNewChannelOpenRequest'
   sender: number
   maxMessageSize: number
   maxCapacity: number
 }
 
-export interface V2Instruction_240_HrmpChannelAccepted {
+export interface Type_240_HrmpChannelAccepted {
   __kind: 'HrmpChannelAccepted'
   recipient: number
 }
 
-export interface V2Instruction_240_HrmpChannelClosing {
+export interface Type_240_HrmpChannelClosing {
   __kind: 'HrmpChannelClosing'
   initiator: number
   sender: number
   recipient: number
 }
 
-export interface V2Instruction_240_ClearOrigin {
+export interface Type_240_ClearOrigin {
   __kind: 'ClearOrigin'
 }
 
-export interface V2Instruction_240_DescendOrigin {
+export interface Type_240_DescendOrigin {
   __kind: 'DescendOrigin'
   value: V1Junctions
 }
 
-export interface V2Instruction_240_ReportError {
+export interface Type_240_ReportError {
   __kind: 'ReportError'
   queryId: bigint
   dest: V1MultiLocation
   maxResponseWeight: bigint
 }
 
-export interface V2Instruction_240_DepositAsset {
+export interface Type_240_DepositAsset {
   __kind: 'DepositAsset'
   assets: V1MultiAssetFilter
   maxAssets: number
   beneficiary: V1MultiLocation
 }
 
-export interface V2Instruction_240_DepositReserveAsset {
+export interface Type_240_DepositReserveAsset {
   __kind: 'DepositReserveAsset'
   assets: V1MultiAssetFilter
   maxAssets: number
   dest: V1MultiLocation
-  xcm: V2Instruction_68[]
+  xcm: V2Instruction[]
 }
 
-export interface V2Instruction_240_ExchangeAsset {
+export interface Type_240_ExchangeAsset {
   __kind: 'ExchangeAsset'
   give: V1MultiAssetFilter
-  receive: V1MultiAssets
+  receive: V1MultiAsset[]
 }
 
-export interface V2Instruction_240_InitiateReserveWithdraw {
+export interface Type_240_InitiateReserveWithdraw {
   __kind: 'InitiateReserveWithdraw'
   assets: V1MultiAssetFilter
   reserve: V1MultiLocation
-  xcm: V2Instruction_68[]
+  xcm: V2Instruction[]
 }
 
-export interface V2Instruction_240_InitiateTeleport {
+export interface Type_240_InitiateTeleport {
   __kind: 'InitiateTeleport'
   assets: V1MultiAssetFilter
   dest: V1MultiLocation
-  xcm: V2Instruction_68[]
+  xcm: V2Instruction[]
 }
 
-export interface V2Instruction_240_QueryHolding {
+export interface Type_240_QueryHolding {
   __kind: 'QueryHolding'
   queryId: bigint
   dest: V1MultiLocation
@@ -3788,48 +3768,48 @@ export interface V2Instruction_240_QueryHolding {
   maxResponseWeight: bigint
 }
 
-export interface V2Instruction_240_BuyExecution {
+export interface Type_240_BuyExecution {
   __kind: 'BuyExecution'
   fees: V1MultiAsset
   weightLimit: V2WeightLimit
 }
 
-export interface V2Instruction_240_RefundSurplus {
+export interface Type_240_RefundSurplus {
   __kind: 'RefundSurplus'
 }
 
-export interface V2Instruction_240_SetErrorHandler {
+export interface Type_240_SetErrorHandler {
   __kind: 'SetErrorHandler'
-  value: V2Instruction_240[]
+  value: Type_240[]
 }
 
-export interface V2Instruction_240_SetAppendix {
+export interface Type_240_SetAppendix {
   __kind: 'SetAppendix'
-  value: V2Instruction_240[]
+  value: Type_240[]
 }
 
-export interface V2Instruction_240_ClearError {
+export interface Type_240_ClearError {
   __kind: 'ClearError'
 }
 
-export interface V2Instruction_240_ClaimAsset {
+export interface Type_240_ClaimAsset {
   __kind: 'ClaimAsset'
-  assets: V1MultiAssets
+  assets: V1MultiAsset[]
   ticket: V1MultiLocation
 }
 
-export interface V2Instruction_240_Trap {
+export interface Type_240_Trap {
   __kind: 'Trap'
   value: bigint
 }
 
-export interface V2Instruction_240_SubscribeVersion {
+export interface Type_240_SubscribeVersion {
   __kind: 'SubscribeVersion'
   queryId: bigint
   maxResponseWeight: bigint
 }
 
-export interface V2Instruction_240_UnsubscribeVersion {
+export interface Type_240_UnsubscribeVersion {
   __kind: 'UnsubscribeVersion'
 }
 
@@ -3880,47 +3860,43 @@ export interface V1Junctions_X8 {
 }
 
 export interface LegacyTransaction {
-  nonce: U256
-  gasPrice: U256
-  gasLimit: U256
+  nonce: bigint[]
+  gasPrice: bigint[]
+  gasLimit: bigint[]
   action: TransactionAction
-  value: U256
+  value: bigint[]
   input: Uint8Array
   signature: TransactionSignature
 }
 
 export interface EIP2930Transaction {
   chainId: bigint
-  nonce: U256
-  gasPrice: U256
-  gasLimit: U256
+  nonce: bigint[]
+  gasPrice: bigint[]
+  gasLimit: bigint[]
   action: TransactionAction
-  value: U256
+  value: bigint[]
   input: Uint8Array
   accessList: AccessListItem[]
   oddYParity: boolean
-  r: H256
-  s: H256
+  r: Uint8Array
+  s: Uint8Array
 }
 
 export interface EIP1559Transaction {
   chainId: bigint
-  nonce: U256
-  maxPriorityFeePerGas: U256
-  maxFeePerGas: U256
-  gasLimit: U256
+  nonce: bigint[]
+  maxPriorityFeePerGas: bigint[]
+  maxFeePerGas: bigint[]
+  gasLimit: bigint[]
   action: TransactionAction
-  value: U256
+  value: bigint[]
   input: Uint8Array
   accessList: AccessListItem[]
   oddYParity: boolean
-  r: H256
-  s: H256
+  r: Uint8Array
+  s: Uint8Array
 }
-
-export type HeadData = Uint8Array
-
-export type BTreeSet = Uint8Array[]
 
 export type DigestItem = DigestItem_PreRuntime | DigestItem_Consensus | DigestItem_Seal | DigestItem_Other | DigestItem_RuntimeEnvironmentUpdated
 
@@ -4002,59 +3978,59 @@ export interface V0Junction_Plurality {
   part: V0BodyPart
 }
 
-export type V0Order_220 = V0Order_220_Null | V0Order_220_DepositAsset | V0Order_220_DepositReserveAsset | V0Order_220_ExchangeAsset | V0Order_220_InitiateReserveWithdraw | V0Order_220_InitiateTeleport | V0Order_220_QueryHolding | V0Order_220_BuyExecution
+export type V0Order = V0Order_Null | V0Order_DepositAsset | V0Order_DepositReserveAsset | V0Order_ExchangeAsset | V0Order_InitiateReserveWithdraw | V0Order_InitiateTeleport | V0Order_QueryHolding | V0Order_BuyExecution
 
-export interface V0Order_220_Null {
+export interface V0Order_Null {
   __kind: 'Null'
 }
 
-export interface V0Order_220_DepositAsset {
+export interface V0Order_DepositAsset {
   __kind: 'DepositAsset'
   assets: V0MultiAsset[]
   dest: V0MultiLocation
 }
 
-export interface V0Order_220_DepositReserveAsset {
+export interface V0Order_DepositReserveAsset {
   __kind: 'DepositReserveAsset'
   assets: V0MultiAsset[]
   dest: V0MultiLocation
-  effects: V0Order_220[]
+  effects: V0Order[]
 }
 
-export interface V0Order_220_ExchangeAsset {
+export interface V0Order_ExchangeAsset {
   __kind: 'ExchangeAsset'
   give: V0MultiAsset[]
   receive: V0MultiAsset[]
 }
 
-export interface V0Order_220_InitiateReserveWithdraw {
+export interface V0Order_InitiateReserveWithdraw {
   __kind: 'InitiateReserveWithdraw'
   assets: V0MultiAsset[]
   reserve: V0MultiLocation
-  effects: V0Order_220[]
+  effects: V0Order[]
 }
 
-export interface V0Order_220_InitiateTeleport {
+export interface V0Order_InitiateTeleport {
   __kind: 'InitiateTeleport'
   assets: V0MultiAsset[]
   dest: V0MultiLocation
-  effects: V0Order_220[]
+  effects: V0Order[]
 }
 
-export interface V0Order_220_QueryHolding {
+export interface V0Order_QueryHolding {
   __kind: 'QueryHolding'
   queryId: bigint
   dest: V0MultiLocation
   assets: V0MultiAsset[]
 }
 
-export interface V0Order_220_BuyExecution {
+export interface V0Order_BuyExecution {
   __kind: 'BuyExecution'
   fees: V0MultiAsset
   weight: bigint
   debt: bigint
   haltOnError: boolean
-  xcm: V0Xcm_218[]
+  xcm: V0Xcm[]
 }
 
 export type V0Response = V0Response_Assets
@@ -4086,68 +4062,68 @@ export interface DoubleEncoded {
   encoded: Uint8Array
 }
 
-export type V1Order_225 = V1Order_225_Noop | V1Order_225_DepositAsset | V1Order_225_DepositReserveAsset | V1Order_225_ExchangeAsset | V1Order_225_InitiateReserveWithdraw | V1Order_225_InitiateTeleport | V1Order_225_QueryHolding | V1Order_225_BuyExecution
+export type V1Order = V1Order_Noop | V1Order_DepositAsset | V1Order_DepositReserveAsset | V1Order_ExchangeAsset | V1Order_InitiateReserveWithdraw | V1Order_InitiateTeleport | V1Order_QueryHolding | V1Order_BuyExecution
 
-export interface V1Order_225_Noop {
+export interface V1Order_Noop {
   __kind: 'Noop'
 }
 
-export interface V1Order_225_DepositAsset {
+export interface V1Order_DepositAsset {
   __kind: 'DepositAsset'
   assets: V1MultiAssetFilter
   maxAssets: number
   beneficiary: V1MultiLocation
 }
 
-export interface V1Order_225_DepositReserveAsset {
+export interface V1Order_DepositReserveAsset {
   __kind: 'DepositReserveAsset'
   assets: V1MultiAssetFilter
   maxAssets: number
   dest: V1MultiLocation
-  effects: V1Order_225[]
+  effects: V1Order[]
 }
 
-export interface V1Order_225_ExchangeAsset {
+export interface V1Order_ExchangeAsset {
   __kind: 'ExchangeAsset'
   give: V1MultiAssetFilter
-  receive: V1MultiAssets
+  receive: V1MultiAsset[]
 }
 
-export interface V1Order_225_InitiateReserveWithdraw {
+export interface V1Order_InitiateReserveWithdraw {
   __kind: 'InitiateReserveWithdraw'
   assets: V1MultiAssetFilter
   reserve: V1MultiLocation
-  effects: V1Order_225[]
+  effects: V1Order[]
 }
 
-export interface V1Order_225_InitiateTeleport {
+export interface V1Order_InitiateTeleport {
   __kind: 'InitiateTeleport'
   assets: V1MultiAssetFilter
   dest: V1MultiLocation
-  effects: V1Order_225[]
+  effects: V1Order[]
 }
 
-export interface V1Order_225_QueryHolding {
+export interface V1Order_QueryHolding {
   __kind: 'QueryHolding'
   queryId: bigint
   dest: V1MultiLocation
   assets: V1MultiAssetFilter
 }
 
-export interface V1Order_225_BuyExecution {
+export interface V1Order_BuyExecution {
   __kind: 'BuyExecution'
   fees: V1MultiAsset
   weight: bigint
   debt: bigint
   haltOnError: boolean
-  instructions: V1Xcm_223[]
+  instructions: V1Xcm[]
 }
 
 export type V1Response = V1Response_Assets | V1Response_Version
 
 export interface V1Response_Assets {
   __kind: 'Assets'
-  value: V1MultiAssets
+  value: V1MultiAsset[]
 }
 
 export interface V1Response_Version {
@@ -4163,7 +4139,7 @@ export interface V2Response_Null {
 
 export interface V2Response_Assets {
   __kind: 'Assets'
-  value: V1MultiAssets
+  value: V1MultiAsset[]
 }
 
 export interface V2Response_ExecutionResult {
@@ -4180,7 +4156,7 @@ export type V1MultiAssetFilter = V1MultiAssetFilter_Definite | V1MultiAssetFilte
 
 export interface V1MultiAssetFilter_Definite {
   __kind: 'Definite'
-  value: V1MultiAssets
+  value: V1MultiAsset[]
 }
 
 export interface V1MultiAssetFilter_Wild {
@@ -4248,116 +4224,116 @@ export interface V1Fungibility_NonFungible {
   value: V1AssetInstance
 }
 
-export type V0Order_231 = V0Order_231_Null | V0Order_231_DepositAsset | V0Order_231_DepositReserveAsset | V0Order_231_ExchangeAsset | V0Order_231_InitiateReserveWithdraw | V0Order_231_InitiateTeleport | V0Order_231_QueryHolding | V0Order_231_BuyExecution
+export type Type_231 = Type_231_Null | Type_231_DepositAsset | Type_231_DepositReserveAsset | Type_231_ExchangeAsset | Type_231_InitiateReserveWithdraw | Type_231_InitiateTeleport | Type_231_QueryHolding | Type_231_BuyExecution
 
-export interface V0Order_231_Null {
+export interface Type_231_Null {
   __kind: 'Null'
 }
 
-export interface V0Order_231_DepositAsset {
+export interface Type_231_DepositAsset {
   __kind: 'DepositAsset'
   assets: V0MultiAsset[]
   dest: V0MultiLocation
 }
 
-export interface V0Order_231_DepositReserveAsset {
+export interface Type_231_DepositReserveAsset {
   __kind: 'DepositReserveAsset'
   assets: V0MultiAsset[]
   dest: V0MultiLocation
-  effects: V0Order_220[]
+  effects: V0Order[]
 }
 
-export interface V0Order_231_ExchangeAsset {
+export interface Type_231_ExchangeAsset {
   __kind: 'ExchangeAsset'
   give: V0MultiAsset[]
   receive: V0MultiAsset[]
 }
 
-export interface V0Order_231_InitiateReserveWithdraw {
+export interface Type_231_InitiateReserveWithdraw {
   __kind: 'InitiateReserveWithdraw'
   assets: V0MultiAsset[]
   reserve: V0MultiLocation
-  effects: V0Order_220[]
+  effects: V0Order[]
 }
 
-export interface V0Order_231_InitiateTeleport {
+export interface Type_231_InitiateTeleport {
   __kind: 'InitiateTeleport'
   assets: V0MultiAsset[]
   dest: V0MultiLocation
-  effects: V0Order_220[]
+  effects: V0Order[]
 }
 
-export interface V0Order_231_QueryHolding {
+export interface Type_231_QueryHolding {
   __kind: 'QueryHolding'
   queryId: bigint
   dest: V0MultiLocation
   assets: V0MultiAsset[]
 }
 
-export interface V0Order_231_BuyExecution {
+export interface Type_231_BuyExecution {
   __kind: 'BuyExecution'
   fees: V0MultiAsset
   weight: bigint
   debt: bigint
   haltOnError: boolean
-  xcm: V0Xcm_229[]
+  xcm: Type_229[]
 }
 
-export type V1Order_236 = V1Order_236_Noop | V1Order_236_DepositAsset | V1Order_236_DepositReserveAsset | V1Order_236_ExchangeAsset | V1Order_236_InitiateReserveWithdraw | V1Order_236_InitiateTeleport | V1Order_236_QueryHolding | V1Order_236_BuyExecution
+export type Type_236 = Type_236_Noop | Type_236_DepositAsset | Type_236_DepositReserveAsset | Type_236_ExchangeAsset | Type_236_InitiateReserveWithdraw | Type_236_InitiateTeleport | Type_236_QueryHolding | Type_236_BuyExecution
 
-export interface V1Order_236_Noop {
+export interface Type_236_Noop {
   __kind: 'Noop'
 }
 
-export interface V1Order_236_DepositAsset {
+export interface Type_236_DepositAsset {
   __kind: 'DepositAsset'
   assets: V1MultiAssetFilter
   maxAssets: number
   beneficiary: V1MultiLocation
 }
 
-export interface V1Order_236_DepositReserveAsset {
+export interface Type_236_DepositReserveAsset {
   __kind: 'DepositReserveAsset'
   assets: V1MultiAssetFilter
   maxAssets: number
   dest: V1MultiLocation
-  effects: V1Order_225[]
+  effects: V1Order[]
 }
 
-export interface V1Order_236_ExchangeAsset {
+export interface Type_236_ExchangeAsset {
   __kind: 'ExchangeAsset'
   give: V1MultiAssetFilter
-  receive: V1MultiAssets
+  receive: V1MultiAsset[]
 }
 
-export interface V1Order_236_InitiateReserveWithdraw {
+export interface Type_236_InitiateReserveWithdraw {
   __kind: 'InitiateReserveWithdraw'
   assets: V1MultiAssetFilter
   reserve: V1MultiLocation
-  effects: V1Order_225[]
+  effects: V1Order[]
 }
 
-export interface V1Order_236_InitiateTeleport {
+export interface Type_236_InitiateTeleport {
   __kind: 'InitiateTeleport'
   assets: V1MultiAssetFilter
   dest: V1MultiLocation
-  effects: V1Order_225[]
+  effects: V1Order[]
 }
 
-export interface V1Order_236_QueryHolding {
+export interface Type_236_QueryHolding {
   __kind: 'QueryHolding'
   queryId: bigint
   dest: V1MultiLocation
   assets: V1MultiAssetFilter
 }
 
-export interface V1Order_236_BuyExecution {
+export interface Type_236_BuyExecution {
   __kind: 'BuyExecution'
   fees: V1MultiAsset
   weight: bigint
   debt: bigint
   haltOnError: boolean
-  instructions: V1Xcm_234[]
+  instructions: Type_234[]
 }
 
 export type V1Junction = V1Junction_Parachain | V1Junction_AccountId32 | V1Junction_AccountIndex64 | V1Junction_AccountKey20 | V1Junction_PalletInstance | V1Junction_GeneralIndex | V1Junction_GeneralKey | V1Junction_OnlyChild | V1Junction_Plurality
@@ -4414,7 +4390,7 @@ export type TransactionAction = TransactionAction_Call | TransactionAction_Creat
 
 export interface TransactionAction_Call {
   __kind: 'Call'
-  value: H160
+  value: Uint8Array
 }
 
 export interface TransactionAction_Create {
@@ -4422,14 +4398,14 @@ export interface TransactionAction_Create {
 }
 
 export interface TransactionSignature {
-  v: TransactionRecoveryId
-  r: H256
-  s: H256
+  v: bigint
+  r: Uint8Array
+  s: Uint8Array
 }
 
 export interface AccessListItem {
-  address: H160
-  storageKeys: H256[]
+  address: Uint8Array
+  storageKeys: Uint8Array[]
 }
 
 export type V0NetworkId = V0NetworkId_Any | V0NetworkId_Named | V0NetworkId_Polkadot | V0NetworkId_Kusama
@@ -4631,8 +4607,6 @@ export interface V1WildMultiAsset_AllOf {
   id: V1AssetId
   fun: V1WildFungibility
 }
-
-export type TransactionRecoveryId = bigint
 
 export type V1WildFungibility = V1WildFungibility_Fungible | V1WildFungibility_NonFungible
 

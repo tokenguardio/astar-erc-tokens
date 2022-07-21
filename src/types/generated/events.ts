@@ -33,7 +33,7 @@ export class AssetsApprovalCancelledEvent {
   /**
    * An approval for account `delegate` was cancelled by `owner`.
    */
-  get asV15(): {assetId: bigint, owner: v15.AccountId32, delegate: v15.AccountId32} {
+  get asV15(): {assetId: bigint, owner: Uint8Array, delegate: Uint8Array} {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -62,7 +62,7 @@ export class AssetsApprovedTransferEvent {
   /**
    * (Additional) funds have been approved for transfer to a destination account.
    */
-  get asV15(): {assetId: bigint, source: v15.AccountId32, delegate: v15.AccountId32, amount: bigint} {
+  get asV15(): {assetId: bigint, source: Uint8Array, delegate: Uint8Array, amount: bigint} {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -178,7 +178,7 @@ export class AssetsBurnedEvent {
   /**
    * Some assets were destroyed.
    */
-  get asV15(): {assetId: bigint, owner: v15.AccountId32, balance: bigint} {
+  get asV15(): {assetId: bigint, owner: Uint8Array, balance: bigint} {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -207,7 +207,7 @@ export class AssetsCreatedEvent {
   /**
    * Some asset class was created.
    */
-  get asV15(): {assetId: bigint, creator: v15.AccountId32, owner: v15.AccountId32} {
+  get asV15(): {assetId: bigint, creator: Uint8Array, owner: Uint8Array} {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -265,7 +265,7 @@ export class AssetsForceCreatedEvent {
   /**
    * Some asset class was force-created.
    */
-  get asV15(): {assetId: bigint, owner: v15.AccountId32} {
+  get asV15(): {assetId: bigint, owner: Uint8Array} {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -294,7 +294,7 @@ export class AssetsFrozenEvent {
   /**
    * Some account `who` was frozen.
    */
-  get asV15(): {assetId: bigint, who: v15.AccountId32} {
+  get asV15(): {assetId: bigint, who: Uint8Array} {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -323,7 +323,7 @@ export class AssetsIssuedEvent {
   /**
    * Some assets were issued.
    */
-  get asV15(): {assetId: bigint, owner: v15.AccountId32, totalSupply: bigint} {
+  get asV15(): {assetId: bigint, owner: Uint8Array, totalSupply: bigint} {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -410,7 +410,7 @@ export class AssetsOwnerChangedEvent {
   /**
    * The owner changed.
    */
-  get asV15(): {assetId: bigint, owner: v15.AccountId32} {
+  get asV15(): {assetId: bigint, owner: Uint8Array} {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -439,7 +439,7 @@ export class AssetsTeamChangedEvent {
   /**
    * The management team changed.
    */
-  get asV15(): {assetId: bigint, issuer: v15.AccountId32, admin: v15.AccountId32, freezer: v15.AccountId32} {
+  get asV15(): {assetId: bigint, issuer: Uint8Array, admin: Uint8Array, freezer: Uint8Array} {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -468,7 +468,7 @@ export class AssetsThawedEvent {
   /**
    * Some account `who` was thawed.
    */
-  get asV15(): {assetId: bigint, who: v15.AccountId32} {
+  get asV15(): {assetId: bigint, who: Uint8Array} {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -497,7 +497,7 @@ export class AssetsTransferredEvent {
   /**
    * Some assets were transferred.
    */
-  get asV15(): {assetId: bigint, from: v15.AccountId32, to: v15.AccountId32, amount: bigint} {
+  get asV15(): {assetId: bigint, from: Uint8Array, to: Uint8Array, amount: bigint} {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -528,7 +528,7 @@ export class AssetsTransferredApprovedEvent {
    * An `amount` was transferred in its entirety from `owner` to `destination` by
    * the approved `delegate`.
    */
-  get asV15(): {assetId: bigint, owner: v15.AccountId32, delegate: v15.AccountId32, destination: v15.AccountId32, amount: bigint} {
+  get asV15(): {assetId: bigint, owner: Uint8Array, delegate: Uint8Array, destination: Uint8Array, amount: bigint} {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -557,7 +557,7 @@ export class BalancesBalanceSetEvent {
   /**
    * A balance was set by root. \[who, free, reserved\]
    */
-  get asV1(): [v1.AccountId32, bigint, bigint] {
+  get asV1(): [Uint8Array, bigint, bigint] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -572,7 +572,7 @@ export class BalancesBalanceSetEvent {
   /**
    * A balance was set by root.
    */
-  get asV3(): {who: v3.AccountId32, free: bigint, reserved: bigint} {
+  get asV3(): {who: Uint8Array, free: bigint, reserved: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -601,7 +601,7 @@ export class BalancesDepositEvent {
   /**
    * Some amount was deposited (e.g. for transaction fees). \[who, deposit\]
    */
-  get asV1(): [v1.AccountId32, bigint] {
+  get asV1(): [Uint8Array, bigint] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -616,7 +616,7 @@ export class BalancesDepositEvent {
   /**
    * Some amount was deposited (e.g. for transaction fees).
    */
-  get asV3(): {who: v3.AccountId32, amount: bigint} {
+  get asV3(): {who: Uint8Array, amount: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -647,7 +647,7 @@ export class BalancesDustLostEvent {
    * An account was removed whose balance was non-zero but below ExistentialDeposit,
    * resulting in an outright loss. \[account, balance\]
    */
-  get asV1(): [v1.AccountId32, bigint] {
+  get asV1(): [Uint8Array, bigint] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -664,7 +664,7 @@ export class BalancesDustLostEvent {
    * An account was removed whose balance was non-zero but below ExistentialDeposit,
    * resulting in an outright loss.
    */
-  get asV3(): {account: v3.AccountId32, amount: bigint} {
+  get asV3(): {account: Uint8Array, amount: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -693,7 +693,7 @@ export class BalancesEndowedEvent {
   /**
    * An account was created with some free balance. \[account, free_balance\]
    */
-  get asV1(): [v1.AccountId32, bigint] {
+  get asV1(): [Uint8Array, bigint] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -708,7 +708,7 @@ export class BalancesEndowedEvent {
   /**
    * An account was created with some free balance.
    */
-  get asV3(): {account: v3.AccountId32, freeBalance: bigint} {
+  get asV3(): {account: Uint8Array, freeBalance: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -741,7 +741,7 @@ export class BalancesReserveRepatriatedEvent {
    * Final argument indicates the destination balance type.
    * \[from, to, balance, destination_status\]
    */
-  get asV1(): [v1.AccountId32, v1.AccountId32, bigint, v1.BalanceStatus] {
+  get asV1(): [Uint8Array, Uint8Array, bigint, v1.BalanceStatus] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -758,7 +758,7 @@ export class BalancesReserveRepatriatedEvent {
    * Some balance was moved from the reserve of the first account to the second account.
    * Final argument indicates the destination balance type.
    */
-  get asV3(): {from: v3.AccountId32, to: v3.AccountId32, amount: bigint, destinationStatus: v3.BalanceStatus} {
+  get asV3(): {from: Uint8Array, to: Uint8Array, amount: bigint, destinationStatus: v3.BalanceStatus} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -787,7 +787,7 @@ export class BalancesReservedEvent {
   /**
    * Some balance was reserved (moved from free to reserved). \[who, value\]
    */
-  get asV1(): [v1.AccountId32, bigint] {
+  get asV1(): [Uint8Array, bigint] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -802,7 +802,7 @@ export class BalancesReservedEvent {
   /**
    * Some balance was reserved (moved from free to reserved).
    */
-  get asV3(): {who: v3.AccountId32, amount: bigint} {
+  get asV3(): {who: Uint8Array, amount: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -831,7 +831,7 @@ export class BalancesSlashedEvent {
   /**
    * Some amount was removed from the account (e.g. for misbehavior).
    */
-  get asV3(): {who: v3.AccountId32, amount: bigint} {
+  get asV3(): {who: Uint8Array, amount: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -860,7 +860,7 @@ export class BalancesTransferEvent {
   /**
    * Transfer succeeded. \[from, to, value\]
    */
-  get asV1(): [v1.AccountId32, v1.AccountId32, bigint] {
+  get asV1(): [Uint8Array, Uint8Array, bigint] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -875,7 +875,7 @@ export class BalancesTransferEvent {
   /**
    * Transfer succeeded.
    */
-  get asV3(): {from: v3.AccountId32, to: v3.AccountId32, amount: bigint} {
+  get asV3(): {from: Uint8Array, to: Uint8Array, amount: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -904,7 +904,7 @@ export class BalancesUnreservedEvent {
   /**
    * Some balance was unreserved (moved from reserved to free). \[who, value\]
    */
-  get asV1(): [v1.AccountId32, bigint] {
+  get asV1(): [Uint8Array, bigint] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -919,7 +919,7 @@ export class BalancesUnreservedEvent {
   /**
    * Some balance was unreserved (moved from reserved to free).
    */
-  get asV3(): {who: v3.AccountId32, amount: bigint} {
+  get asV3(): {who: Uint8Array, amount: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -948,7 +948,7 @@ export class BalancesWithdrawEvent {
   /**
    * Some amount was withdrawn from the account (e.g. for transaction fees).
    */
-  get asV3(): {who: v3.AccountId32, amount: bigint} {
+  get asV3(): {who: Uint8Array, amount: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -1017,7 +1017,7 @@ export class BaseFeeNewBaseFeePerGasEvent {
     return this._chain.getEventHash('BaseFee.NewBaseFeePerGas') === 'a70e61c66fb8f25a6ad950b70e508f5c9272e4478f62c480403898c0a5cae6de'
   }
 
-  get asV9(): v9.U256 {
+  get asV9(): bigint[] {
     assert(this.isV9)
     return this._chain.decodeEvent(this.event)
   }
@@ -1040,7 +1040,7 @@ export class BaseFeeNewElasticityEvent {
     return this._chain.getEventHash('BaseFee.NewElasticity') === '0a0f30b1ade5af5fade6413c605719d59be71340cf4884f65ee9858eb1c38f6c'
   }
 
-  get asV9(): v9.Permill {
+  get asV9(): number {
     assert(this.isV9)
     return this._chain.decodeEvent(this.event)
   }
@@ -1092,7 +1092,7 @@ export class CollatorSelectionCandidateAddedEvent {
     return this._chain.getEventHash('CollatorSelection.CandidateAdded') === '23bebce4ca9ed37548947d07d4dc50e772f07401b9a416b6aa2f3e9cb5adcaf4'
   }
 
-  get asV1(): [v1.AccountId32, bigint] {
+  get asV1(): [Uint8Array, bigint] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -1115,7 +1115,7 @@ export class CollatorSelectionCandidateRemovedEvent {
     return this._chain.getEventHash('CollatorSelection.CandidateRemoved') === '21ea0c8f2488eafafdea1de92b54cd17d8b1caff525e37616abf0ff93f11531d'
   }
 
-  get asV1(): v1.AccountId32 {
+  get asV1(): Uint8Array {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -1184,7 +1184,7 @@ export class CollatorSelectionNewInvulnerablesEvent {
     return this._chain.getEventHash('CollatorSelection.NewInvulnerables') === 'b108f68a3a6ead7fe33d80e59b6d7124fdd14cd6108c81ad0b9d713fd6046122'
   }
 
-  get asV1(): v1.AccountId32[] {
+  get asV1(): Uint8Array[] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -1306,7 +1306,7 @@ export class DappsStakingBondAndStakeEvent {
   /**
    * Account has bonded and staked funds on a smart contract.
    */
-  get asV4(): [v4.AccountId32, v4.SmartContract, bigint] {
+  get asV4(): [Uint8Array, v4.SmartContract, bigint] {
     assert(this.isV4)
     return this._chain.decodeEvent(this.event)
   }
@@ -1335,7 +1335,7 @@ export class DappsStakingContractRemovedEvent {
   /**
    * Contract removed from dapps staking.
    */
-  get asV4(): [v4.AccountId32, v4.SmartContract] {
+  get asV4(): [Uint8Array, v4.SmartContract] {
     assert(this.isV4)
     return this._chain.decodeEvent(this.event)
   }
@@ -1393,7 +1393,7 @@ export class DappsStakingNewContractEvent {
   /**
    * New contract added for staking.
    */
-  get asV4(): [v4.AccountId32, v4.SmartContract] {
+  get asV4(): [Uint8Array, v4.SmartContract] {
     assert(this.isV4)
     return this._chain.decodeEvent(this.event)
   }
@@ -1455,7 +1455,7 @@ export class DappsStakingNominationTransferEvent {
    * 
    * \(staker account, origin smart contract, amount, target smart contract\)
    */
-  get asV17(): [v17.AccountId32, v17.SmartContract, bigint, v17.SmartContract] {
+  get asV17(): [Uint8Array, v17.SmartContract, bigint, v17.SmartContract] {
     assert(this.isV17)
     return this._chain.decodeEvent(this.event)
   }
@@ -1484,7 +1484,7 @@ export class DappsStakingRewardEvent {
   /**
    * Reward paid to staker or developer.
    */
-  get asV4(): [v4.AccountId32, v4.SmartContract, number, bigint] {
+  get asV4(): [Uint8Array, v4.SmartContract, number, bigint] {
     assert(this.isV4)
     return this._chain.decodeEvent(this.event)
   }
@@ -1513,7 +1513,7 @@ export class DappsStakingRewardDestinationEvent {
   /**
    * Reward handling modified
    */
-  get asV16(): [v16.AccountId32, v16.RewardDestination] {
+  get asV16(): [Uint8Array, v16.RewardDestination] {
     assert(this.isV16)
     return this._chain.decodeEvent(this.event)
   }
@@ -1542,7 +1542,7 @@ export class DappsStakingUnbondAndUnstakeEvent {
   /**
    * Account has unbonded & unstaked some funds. Unbonding process begins.
    */
-  get asV12(): [v12.AccountId32, v12.SmartContract, bigint] {
+  get asV12(): [Uint8Array, v12.SmartContract, bigint] {
     assert(this.isV12)
     return this._chain.decodeEvent(this.event)
   }
@@ -1571,7 +1571,7 @@ export class DappsStakingUnbondUnstakeAndWithdrawEvent {
   /**
    * Account has unbonded, unstaked and withdrawn funds.
    */
-  get asV4(): [v4.AccountId32, v4.SmartContract, bigint] {
+  get asV4(): [Uint8Array, v4.SmartContract, bigint] {
     assert(this.isV4)
     return this._chain.decodeEvent(this.event)
   }
@@ -1600,7 +1600,7 @@ export class DappsStakingWithdrawFromUnregisteredEvent {
   /**
    * Account has fully withdrawn all staked amount from an unregistered contract.
    */
-  get asV12(): [v12.AccountId32, v12.SmartContract, bigint] {
+  get asV12(): [Uint8Array, v12.SmartContract, bigint] {
     assert(this.isV12)
     return this._chain.decodeEvent(this.event)
   }
@@ -1629,7 +1629,7 @@ export class DappsStakingWithdrawnEvent {
   /**
    * Account has withdrawn unbonded funds.
    */
-  get asV12(): [v12.AccountId32, bigint] {
+  get asV12(): [Uint8Array, bigint] {
     assert(this.isV12)
     return this._chain.decodeEvent(this.event)
   }
@@ -1934,7 +1934,7 @@ export class EvmBalanceDepositEvent {
   /**
    * A deposit has been made at a given address. \[sender, address, value\]
    */
-  get asV1(): [v1.AccountId32, v1.H160, v1.U256] {
+  get asV1(): [Uint8Array, Uint8Array, bigint[]] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -1963,7 +1963,7 @@ export class EvmBalanceWithdrawEvent {
   /**
    * A withdrawal has been made from a given address. \[sender, address, value\]
    */
-  get asV1(): [v1.AccountId32, v1.H160, v1.U256] {
+  get asV1(): [Uint8Array, Uint8Array, bigint[]] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -1992,7 +1992,7 @@ export class EvmCreatedEvent {
   /**
    * A contract has been created at given \[address\].
    */
-  get asV1(): v1.H160 {
+  get asV1(): Uint8Array {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2021,7 +2021,7 @@ export class EvmCreatedFailedEvent {
   /**
    * A \[contract\] was attempted to be created, but the execution failed.
    */
-  get asV1(): v1.H160 {
+  get asV1(): Uint8Array {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2050,7 +2050,7 @@ export class EvmExecutedEvent {
   /**
    * A \[contract\] has been executed successfully with states applied.
    */
-  get asV1(): v1.H160 {
+  get asV1(): Uint8Array {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2079,7 +2079,7 @@ export class EvmExecutedFailedEvent {
   /**
    * A \[contract\] has been executed with errors. States are reverted with only gas fees applied.
    */
-  get asV1(): v1.H160 {
+  get asV1(): Uint8Array {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2137,7 +2137,7 @@ export class EthCallExecutedEvent {
   /**
    * A call just executed. \[result\]
    */
-  get asV1(): [v1.AccountId32, Result<null, v1.DispatchError>] {
+  get asV1(): [Uint8Array, Result<null, v1.DispatchError>] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2152,7 +2152,7 @@ export class EthCallExecutedEvent {
   /**
    * A call just executed. \[result\]
    */
-  get asV9(): [v9.AccountId32, Result<null, v9.DispatchError>] {
+  get asV9(): [Uint8Array, Result<null, v9.DispatchError>] {
     assert(this.isV9)
     return this._chain.decodeEvent(this.event)
   }
@@ -2167,7 +2167,7 @@ export class EthCallExecutedEvent {
   /**
    * A call just executed. \[result\]
    */
-  get asV15(): [v15.AccountId32, Result<null, v15.DispatchError>] {
+  get asV15(): [Uint8Array, Result<null, v15.DispatchError>] {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -2196,7 +2196,7 @@ export class EthereumExecutedEvent {
   /**
    * An ethereum transaction was successfully executed. [from, to/contract_address, transaction_hash, exit_reason]
    */
-  get asV1(): [v1.H160, v1.H160, v1.H256, v1.ExitReason] {
+  get asV1(): [Uint8Array, Uint8Array, Uint8Array, v1.ExitReason] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2211,7 +2211,7 @@ export class EthereumExecutedEvent {
   /**
    * An ethereum transaction was successfully executed. [from, to/contract_address, transaction_hash, exit_reason]
    */
-  get asV9(): [v9.H160, v9.H160, v9.H256, v9.ExitReason] {
+  get asV9(): [Uint8Array, Uint8Array, Uint8Array, v9.ExitReason] {
     assert(this.isV9)
     return this._chain.decodeEvent(this.event)
   }
@@ -2226,7 +2226,7 @@ export class EthereumExecutedEvent {
   /**
    * An ethereum transaction was successfully executed. [from, to/contract_address, transaction_hash, exit_reason]
    */
-  get asV15(): [v15.H160, v15.H160, v15.H256, v15.ExitReason] {
+  get asV15(): [Uint8Array, Uint8Array, Uint8Array, v15.ExitReason] {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -2241,7 +2241,7 @@ export class EthereumExecutedEvent {
   /**
    * An ethereum transaction was successfully executed. [from, to/contract_address, transaction_hash, exit_reason]
    */
-  get asV23(): [v23.H160, v23.H160, v23.H256, v23.ExitReason] {
+  get asV23(): [Uint8Array, Uint8Array, Uint8Array, v23.ExitReason] {
     assert(this.isV23)
     return this._chain.decodeEvent(this.event)
   }
@@ -2270,7 +2270,7 @@ export class IdentityIdentityClearedEvent {
   /**
    * A name was cleared, and the given balance returned. \[who, deposit\]
    */
-  get asV1(): [v1.AccountId32, bigint] {
+  get asV1(): [Uint8Array, bigint] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2285,7 +2285,7 @@ export class IdentityIdentityClearedEvent {
   /**
    * A name was cleared, and the given balance returned.
    */
-  get asV3(): {who: v3.AccountId32, deposit: bigint} {
+  get asV3(): {who: Uint8Array, deposit: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -2314,7 +2314,7 @@ export class IdentityIdentityKilledEvent {
   /**
    * A name was removed and the given balance slashed. \[who, deposit\]
    */
-  get asV1(): [v1.AccountId32, bigint] {
+  get asV1(): [Uint8Array, bigint] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2329,7 +2329,7 @@ export class IdentityIdentityKilledEvent {
   /**
    * A name was removed and the given balance slashed.
    */
-  get asV3(): {who: v3.AccountId32, deposit: bigint} {
+  get asV3(): {who: Uint8Array, deposit: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -2358,7 +2358,7 @@ export class IdentityIdentitySetEvent {
   /**
    * A name was set or reset (which will remove all judgements). \[who\]
    */
-  get asV1(): v1.AccountId32 {
+  get asV1(): Uint8Array {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2373,7 +2373,7 @@ export class IdentityIdentitySetEvent {
   /**
    * A name was set or reset (which will remove all judgements).
    */
-  get asV3(): {who: v3.AccountId32} {
+  get asV3(): {who: Uint8Array} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -2402,7 +2402,7 @@ export class IdentityJudgementGivenEvent {
   /**
    * A judgement was given by a registrar. \[target, registrar_index\]
    */
-  get asV1(): [v1.AccountId32, number] {
+  get asV1(): [Uint8Array, number] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2417,7 +2417,7 @@ export class IdentityJudgementGivenEvent {
   /**
    * A judgement was given by a registrar.
    */
-  get asV3(): {target: v3.AccountId32, registrarIndex: number} {
+  get asV3(): {target: Uint8Array, registrarIndex: number} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -2446,7 +2446,7 @@ export class IdentityJudgementRequestedEvent {
   /**
    * A judgement was asked from a registrar. \[who, registrar_index\]
    */
-  get asV1(): [v1.AccountId32, number] {
+  get asV1(): [Uint8Array, number] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2461,7 +2461,7 @@ export class IdentityJudgementRequestedEvent {
   /**
    * A judgement was asked from a registrar.
    */
-  get asV3(): {who: v3.AccountId32, registrarIndex: number} {
+  get asV3(): {who: Uint8Array, registrarIndex: number} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -2490,7 +2490,7 @@ export class IdentityJudgementUnrequestedEvent {
   /**
    * A judgement request was retracted. \[who, registrar_index\]
    */
-  get asV1(): [v1.AccountId32, number] {
+  get asV1(): [Uint8Array, number] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2505,7 +2505,7 @@ export class IdentityJudgementUnrequestedEvent {
   /**
    * A judgement request was retracted.
    */
-  get asV3(): {who: v3.AccountId32, registrarIndex: number} {
+  get asV3(): {who: Uint8Array, registrarIndex: number} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -2578,7 +2578,7 @@ export class IdentitySubIdentityAddedEvent {
   /**
    * A sub-identity was added to an identity and the deposit paid. \[sub, main, deposit\]
    */
-  get asV1(): [v1.AccountId32, v1.AccountId32, bigint] {
+  get asV1(): [Uint8Array, Uint8Array, bigint] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2593,7 +2593,7 @@ export class IdentitySubIdentityAddedEvent {
   /**
    * A sub-identity was added to an identity and the deposit paid.
    */
-  get asV3(): {sub: v3.AccountId32, main: v3.AccountId32, deposit: bigint} {
+  get asV3(): {sub: Uint8Array, main: Uint8Array, deposit: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -2624,7 +2624,7 @@ export class IdentitySubIdentityRemovedEvent {
    * A sub-identity was removed from an identity and the deposit freed.
    * \[sub, main, deposit\]
    */
-  get asV1(): [v1.AccountId32, v1.AccountId32, bigint] {
+  get asV1(): [Uint8Array, Uint8Array, bigint] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2639,7 +2639,7 @@ export class IdentitySubIdentityRemovedEvent {
   /**
    * A sub-identity was removed from an identity and the deposit freed.
    */
-  get asV3(): {sub: v3.AccountId32, main: v3.AccountId32, deposit: bigint} {
+  get asV3(): {sub: Uint8Array, main: Uint8Array, deposit: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -2670,7 +2670,7 @@ export class IdentitySubIdentityRevokedEvent {
    * A sub-identity was cleared, and the given deposit repatriated from the
    * main identity account to the sub-identity account. \[sub, main, deposit\]
    */
-  get asV1(): [v1.AccountId32, v1.AccountId32, bigint] {
+  get asV1(): [Uint8Array, Uint8Array, bigint] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2687,7 +2687,7 @@ export class IdentitySubIdentityRevokedEvent {
    * A sub-identity was cleared, and the given deposit repatriated from the
    * main identity account to the sub-identity account.
    */
-  get asV3(): {sub: v3.AccountId32, main: v3.AccountId32, deposit: bigint} {
+  get asV3(): {sub: Uint8Array, main: Uint8Array, deposit: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -2718,7 +2718,7 @@ export class MultisigMultisigApprovalEvent {
    * A multisig operation has been approved by someone.
    * \[approving, timepoint, multisig, call_hash\]
    */
-  get asV1(): [v1.AccountId32, v1.Timepoint, v1.AccountId32, Uint8Array] {
+  get asV1(): [Uint8Array, v1.Timepoint, Uint8Array, Uint8Array] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2733,7 +2733,7 @@ export class MultisigMultisigApprovalEvent {
   /**
    * A multisig operation has been approved by someone.
    */
-  get asV3(): {approving: v3.AccountId32, timepoint: v3.Timepoint, multisig: v3.AccountId32, callHash: Uint8Array} {
+  get asV3(): {approving: Uint8Array, timepoint: v3.Timepoint, multisig: Uint8Array, callHash: Uint8Array} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -2762,7 +2762,7 @@ export class MultisigMultisigCancelledEvent {
   /**
    * A multisig operation has been cancelled. \[cancelling, timepoint, multisig, call_hash\]
    */
-  get asV1(): [v1.AccountId32, v1.Timepoint, v1.AccountId32, Uint8Array] {
+  get asV1(): [Uint8Array, v1.Timepoint, Uint8Array, Uint8Array] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2777,7 +2777,7 @@ export class MultisigMultisigCancelledEvent {
   /**
    * A multisig operation has been cancelled.
    */
-  get asV3(): {cancelling: v3.AccountId32, timepoint: v3.Timepoint, multisig: v3.AccountId32, callHash: Uint8Array} {
+  get asV3(): {cancelling: Uint8Array, timepoint: v3.Timepoint, multisig: Uint8Array, callHash: Uint8Array} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -2806,7 +2806,7 @@ export class MultisigMultisigExecutedEvent {
   /**
    * A multisig operation has been executed. \[approving, timepoint, multisig, call_hash\]
    */
-  get asV1(): [v1.AccountId32, v1.Timepoint, v1.AccountId32, Uint8Array, Result<null, v1.DispatchError>] {
+  get asV1(): [Uint8Array, v1.Timepoint, Uint8Array, Uint8Array, Result<null, v1.DispatchError>] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2821,7 +2821,7 @@ export class MultisigMultisigExecutedEvent {
   /**
    * A multisig operation has been executed.
    */
-  get asV3(): {approving: v3.AccountId32, timepoint: v3.Timepoint, multisig: v3.AccountId32, callHash: Uint8Array, result: Result<null, v3.DispatchError>} {
+  get asV3(): {approving: Uint8Array, timepoint: v3.Timepoint, multisig: Uint8Array, callHash: Uint8Array, result: Result<null, v3.DispatchError>} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -2836,7 +2836,7 @@ export class MultisigMultisigExecutedEvent {
   /**
    * A multisig operation has been executed.
    */
-  get asV9(): {approving: v9.AccountId32, timepoint: v9.Timepoint, multisig: v9.AccountId32, callHash: Uint8Array, result: Result<null, v9.DispatchError>} {
+  get asV9(): {approving: Uint8Array, timepoint: v9.Timepoint, multisig: Uint8Array, callHash: Uint8Array, result: Result<null, v9.DispatchError>} {
     assert(this.isV9)
     return this._chain.decodeEvent(this.event)
   }
@@ -2851,7 +2851,7 @@ export class MultisigMultisigExecutedEvent {
   /**
    * A multisig operation has been executed.
    */
-  get asV15(): {approving: v15.AccountId32, timepoint: v15.Timepoint, multisig: v15.AccountId32, callHash: Uint8Array, result: Result<null, v15.DispatchError>} {
+  get asV15(): {approving: Uint8Array, timepoint: v15.Timepoint, multisig: Uint8Array, callHash: Uint8Array, result: Result<null, v15.DispatchError>} {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -2880,7 +2880,7 @@ export class MultisigNewMultisigEvent {
   /**
    * A new multisig operation has begun. \[approving, multisig, call_hash\]
    */
-  get asV1(): [v1.AccountId32, v1.AccountId32, Uint8Array] {
+  get asV1(): [Uint8Array, Uint8Array, Uint8Array] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2895,7 +2895,7 @@ export class MultisigNewMultisigEvent {
   /**
    * A new multisig operation has begun.
    */
-  get asV3(): {approving: v3.AccountId32, multisig: v3.AccountId32, callHash: Uint8Array} {
+  get asV3(): {approving: Uint8Array, multisig: Uint8Array, callHash: Uint8Array} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -2926,7 +2926,7 @@ export class ParachainSystemDownwardMessagesProcessedEvent {
    * Downward messages were processed using the given weight.
    * \[ weight_used, result_mqc_head \]
    */
-  get asV1(): [bigint, v1.H256] {
+  get asV1(): [bigint, Uint8Array] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -2941,7 +2941,7 @@ export class ParachainSystemDownwardMessagesProcessedEvent {
   /**
    * Downward messages were processed using the given weight.
    */
-  get asV23(): {weightUsed: bigint, dmqHead: v23.H256} {
+  get asV23(): {weightUsed: bigint, dmqHead: Uint8Array} {
     assert(this.isV23)
     return this._chain.decodeEvent(this.event)
   }
@@ -3016,7 +3016,7 @@ export class ParachainSystemUpgradeAuthorizedEvent {
   /**
    * An upgrade has been authorized.
    */
-  get asV1(): v1.H256 {
+  get asV1(): Uint8Array {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -3031,7 +3031,7 @@ export class ParachainSystemUpgradeAuthorizedEvent {
   /**
    * An upgrade has been authorized.
    */
-  get asV23(): {codeHash: v23.H256} {
+  get asV23(): {codeHash: Uint8Array} {
     assert(this.isV23)
     return this._chain.decodeEvent(this.event)
   }
@@ -3183,7 +3183,7 @@ export class PolkadotXcmAssetsTrappedEvent {
    * 
    * \[ hash, origin, assets \]
    */
-  get asV15(): [v15.H256, v15.V1MultiLocation, v15.VersionedMultiAssets] {
+  get asV15(): [Uint8Array, v15.V1MultiLocation, v15.VersionedMultiAssets] {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -3613,7 +3613,7 @@ export class PolkadotXcmSentEvent {
    * 
    * \[ origin, destination, message \]
    */
-  get asV15(): [v15.V1MultiLocation, v15.V1MultiLocation, v15.V2Instruction_67[]] {
+  get asV15(): [v15.V1MultiLocation, v15.V1MultiLocation, v15.V2Instruction[]] {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -3795,7 +3795,7 @@ export class SudoKeyChangedEvent {
   /**
    * The \[sudoer\] just switched identity; the old key is supplied.
    */
-  get asV1(): v1.AccountId32 {
+  get asV1(): Uint8Array {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -3810,7 +3810,7 @@ export class SudoKeyChangedEvent {
   /**
    * The \[sudoer\] just switched identity; the old key is supplied.
    */
-  get asV3(): {newSudoer: v3.AccountId32} {
+  get asV3(): {newSudoer: Uint8Array} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -3825,7 +3825,7 @@ export class SudoKeyChangedEvent {
   /**
    * The \[sudoer\] just switched identity; the old key is supplied if one existed.
    */
-  get asV9(): {oldSudoer: (v9.AccountId32 | undefined)} {
+  get asV9(): {oldSudoer: (Uint8Array | undefined)} {
     assert(this.isV9)
     return this._chain.decodeEvent(this.event)
   }
@@ -4134,7 +4134,7 @@ export class SystemKilledAccountEvent {
   /**
    * An \[account\] was reaped.
    */
-  get asV1(): v1.AccountId32 {
+  get asV1(): Uint8Array {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -4149,7 +4149,7 @@ export class SystemKilledAccountEvent {
   /**
    * An account was reaped.
    */
-  get asV9(): {account: v9.AccountId32} {
+  get asV9(): {account: Uint8Array} {
     assert(this.isV9)
     return this._chain.decodeEvent(this.event)
   }
@@ -4178,7 +4178,7 @@ export class SystemNewAccountEvent {
   /**
    * A new \[account\] was created.
    */
-  get asV1(): v1.AccountId32 {
+  get asV1(): Uint8Array {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -4193,7 +4193,7 @@ export class SystemNewAccountEvent {
   /**
    * A new account was created.
    */
-  get asV9(): {account: v9.AccountId32} {
+  get asV9(): {account: Uint8Array} {
     assert(this.isV9)
     return this._chain.decodeEvent(this.event)
   }
@@ -4222,7 +4222,7 @@ export class SystemRemarkedEvent {
   /**
    * On on-chain remark happened. \[origin, remark_hash\]
    */
-  get asV1(): [v1.AccountId32, v1.H256] {
+  get asV1(): [Uint8Array, Uint8Array] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -4237,7 +4237,7 @@ export class SystemRemarkedEvent {
   /**
    * On on-chain remark happened.
    */
-  get asV9(): {sender: v9.AccountId32, hash: v9.H256} {
+  get asV9(): {sender: Uint8Array, hash: Uint8Array} {
     assert(this.isV9)
     return this._chain.decodeEvent(this.event)
   }
@@ -4523,7 +4523,7 @@ export class VestingVestingCompletedEvent {
   /**
    * An \[account\] has become fully vested.
    */
-  get asV1(): v1.AccountId32 {
+  get asV1(): Uint8Array {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -4538,7 +4538,7 @@ export class VestingVestingCompletedEvent {
   /**
    * An \[account\] has become fully vested.
    */
-  get asV3(): {account: v3.AccountId32} {
+  get asV3(): {account: Uint8Array} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -4571,7 +4571,7 @@ export class VestingVestingUpdatedEvent {
    * The balance given is the amount which is left unvested (and thus locked).
    * \[account, unvested\]
    */
-  get asV1(): [v1.AccountId32, bigint] {
+  get asV1(): [Uint8Array, bigint] {
     assert(this.isV1)
     return this._chain.decodeEvent(this.event)
   }
@@ -4588,7 +4588,7 @@ export class VestingVestingUpdatedEvent {
    * The amount vested has been updated. This could indicate a change in funds available.
    * The balance given is the amount which is left unvested (and thus locked).
    */
-  get asV3(): {account: v3.AccountId32, unvested: bigint} {
+  get asV3(): {account: Uint8Array, unvested: bigint} {
     assert(this.isV3)
     return this._chain.decodeEvent(this.event)
   }
@@ -4762,7 +4762,7 @@ export class XcmpQueueBadFormatEvent {
   /**
    * Bad XCM format used.
    */
-  get asV15(): (v15.H256 | undefined) {
+  get asV15(): (Uint8Array | undefined) {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -4791,7 +4791,7 @@ export class XcmpQueueBadVersionEvent {
   /**
    * Bad XCM version used.
    */
-  get asV15(): (v15.H256 | undefined) {
+  get asV15(): (Uint8Array | undefined) {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -4820,7 +4820,7 @@ export class XcmpQueueFailEvent {
   /**
    * Some XCM failed.
    */
-  get asV15(): [(v15.H256 | undefined), v15.V2Error] {
+  get asV15(): [(Uint8Array | undefined), v15.V2Error] {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -4849,7 +4849,7 @@ export class XcmpQueueOverweightEnqueuedEvent {
   /**
    * An XCM exceeded the individual message weight budget.
    */
-  get asV15(): [v15.Id, number, bigint, bigint] {
+  get asV15(): [number, number, bigint, bigint] {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -4907,7 +4907,7 @@ export class XcmpQueueSuccessEvent {
   /**
    * Some XCM was executed ok.
    */
-  get asV15(): (v15.H256 | undefined) {
+  get asV15(): (Uint8Array | undefined) {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -4936,7 +4936,7 @@ export class XcmpQueueUpwardMessageSentEvent {
   /**
    * An upward message was sent to the relay chain.
    */
-  get asV15(): (v15.H256 | undefined) {
+  get asV15(): (Uint8Array | undefined) {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
@@ -4965,7 +4965,7 @@ export class XcmpQueueXcmpMessageSentEvent {
   /**
    * An HRMP message was sent to a sibling parachain.
    */
-  get asV15(): (v15.H256 | undefined) {
+  get asV15(): (Uint8Array | undefined) {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
