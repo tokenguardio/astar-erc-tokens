@@ -9,6 +9,7 @@ import * as v15 from './v15'
 import * as v16 from './v16'
 import * as v17 from './v17'
 import * as v23 from './v23'
+import * as v30 from './v30'
 
 export class AssetsApprovalCancelledEvent {
   private readonly _chain: Chain
@@ -1117,6 +1118,29 @@ export class CollatorSelectionCandidateRemovedEvent {
 
   get asV1(): Uint8Array {
     assert(this.isV1)
+    return this._chain.decodeEvent(this.event)
+  }
+}
+
+export class CollatorSelectionCandidateSlashedEvent {
+  private readonly _chain: Chain
+  private readonly event: Event
+
+  constructor(ctx: EventContext)
+  constructor(ctx: ChainContext, event: Event)
+  constructor(ctx: EventContext, event?: Event) {
+    event = event || ctx.event
+    assert(event.name === 'CollatorSelection.CandidateSlashed')
+    this._chain = ctx._chain
+    this.event = event
+  }
+
+  get isV30(): boolean {
+    return this._chain.getEventHash('CollatorSelection.CandidateSlashed') === '21ea0c8f2488eafafdea1de92b54cd17d8b1caff525e37616abf0ff93f11531d'
+  }
+
+  get asV30(): Uint8Array {
+    assert(this.isV30)
     return this._chain.decodeEvent(this.event)
   }
 }
@@ -2243,6 +2267,21 @@ export class EthereumExecutedEvent {
    */
   get asV23(): [Uint8Array, Uint8Array, Uint8Array, v23.ExitReason] {
     assert(this.isV23)
+    return this._chain.decodeEvent(this.event)
+  }
+
+  /**
+   * An ethereum transaction was successfully executed. [from, to/contract_address, transaction_hash, exit_reason]
+   */
+  get isV30(): boolean {
+    return this._chain.getEventHash('Ethereum.Executed') === '19a41316cbc97760af789cb1da772172d6a9f09521ee0e5e8f18125c1db318df'
+  }
+
+  /**
+   * An ethereum transaction was successfully executed. [from, to/contract_address, transaction_hash, exit_reason]
+   */
+  get asV30(): [Uint8Array, Uint8Array, Uint8Array, v30.ExitReason] {
+    assert(this.isV30)
     return this._chain.decodeEvent(this.event)
   }
 }
@@ -4243,6 +4282,37 @@ export class SystemRemarkedEvent {
   }
 }
 
+export class TransactionPaymentTransactionFeePaidEvent {
+  private readonly _chain: Chain
+  private readonly event: Event
+
+  constructor(ctx: EventContext)
+  constructor(ctx: ChainContext, event: Event)
+  constructor(ctx: EventContext, event?: Event) {
+    event = event || ctx.event
+    assert(event.name === 'TransactionPayment.TransactionFeePaid')
+    this._chain = ctx._chain
+    this.event = event
+  }
+
+  /**
+   * A transaction fee `actual_fee`, of which `tip` was added to the minimum inclusion fee,
+   * has been paid by `who`.
+   */
+  get isV30(): boolean {
+    return this._chain.getEventHash('TransactionPayment.TransactionFeePaid') === 'f2e962e9996631445edecd62b0646df79871442a2d1a1a6e1f550a0b3a56b226'
+  }
+
+  /**
+   * A transaction fee `actual_fee`, of which `tip` was added to the minimum inclusion fee,
+   * has been paid by `who`.
+   */
+  get asV30(): {who: Uint8Array, actualFee: bigint, tip: bigint} {
+    assert(this.isV30)
+    return this._chain.decodeEvent(this.event)
+  }
+}
+
 export class UtilityBatchCompletedEvent {
   private readonly _chain: Chain
   private readonly event: Event
@@ -4766,6 +4836,21 @@ export class XcmpQueueBadFormatEvent {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
+
+  /**
+   * Bad XCM format used.
+   */
+  get isV30(): boolean {
+    return this._chain.getEventHash('XcmpQueue.BadFormat') === 'ccbb82ba01a4d742bdd34e545836a89f2c435428f6887f28ce1ecf0166419df1'
+  }
+
+  /**
+   * Bad XCM format used.
+   */
+  get asV30(): {messageHash: (Uint8Array | undefined)} {
+    assert(this.isV30)
+    return this._chain.decodeEvent(this.event)
+  }
 }
 
 export class XcmpQueueBadVersionEvent {
@@ -4793,6 +4878,21 @@ export class XcmpQueueBadVersionEvent {
    */
   get asV15(): (Uint8Array | undefined) {
     assert(this.isV15)
+    return this._chain.decodeEvent(this.event)
+  }
+
+  /**
+   * Bad XCM version used.
+   */
+  get isV30(): boolean {
+    return this._chain.getEventHash('XcmpQueue.BadVersion') === 'ccbb82ba01a4d742bdd34e545836a89f2c435428f6887f28ce1ecf0166419df1'
+  }
+
+  /**
+   * Bad XCM version used.
+   */
+  get asV30(): {messageHash: (Uint8Array | undefined)} {
+    assert(this.isV30)
     return this._chain.decodeEvent(this.event)
   }
 }
@@ -4824,6 +4924,21 @@ export class XcmpQueueFailEvent {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
+
+  /**
+   * Some XCM failed.
+   */
+  get isV30(): boolean {
+    return this._chain.getEventHash('XcmpQueue.Fail') === '8ca5252e46336e4c6a7bffc1927807bb885a90bad49951c5e832eda183f4d365'
+  }
+
+  /**
+   * Some XCM failed.
+   */
+  get asV30(): {messageHash: (Uint8Array | undefined), error: v30.V2Error, weight: bigint} {
+    assert(this.isV30)
+    return this._chain.decodeEvent(this.event)
+  }
 }
 
 export class XcmpQueueOverweightEnqueuedEvent {
@@ -4851,6 +4966,21 @@ export class XcmpQueueOverweightEnqueuedEvent {
    */
   get asV15(): [number, number, bigint, bigint] {
     assert(this.isV15)
+    return this._chain.decodeEvent(this.event)
+  }
+
+  /**
+   * An XCM exceeded the individual message weight budget.
+   */
+  get isV30(): boolean {
+    return this._chain.getEventHash('XcmpQueue.OverweightEnqueued') === '66fcd6ac0f8478601d6008edf04a5f6e1988dad34d2e67484bc112967caeddbb'
+  }
+
+  /**
+   * An XCM exceeded the individual message weight budget.
+   */
+  get asV30(): {sender: number, sentAt: number, index: bigint, required: bigint} {
+    assert(this.isV30)
     return this._chain.decodeEvent(this.event)
   }
 }
@@ -4882,6 +5012,21 @@ export class XcmpQueueOverweightServicedEvent {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
+
+  /**
+   * An XCM from the overweight queue was executed with the given actual weight used.
+   */
+  get isV30(): boolean {
+    return this._chain.getEventHash('XcmpQueue.OverweightServiced') === '6de49eae2a9c6e3c2fecdcc4baff436b4272b874de79a1f9f8955ca81e9f47bb'
+  }
+
+  /**
+   * An XCM from the overweight queue was executed with the given actual weight used.
+   */
+  get asV30(): {index: bigint, used: bigint} {
+    assert(this.isV30)
+    return this._chain.decodeEvent(this.event)
+  }
 }
 
 export class XcmpQueueSuccessEvent {
@@ -4909,6 +5054,21 @@ export class XcmpQueueSuccessEvent {
    */
   get asV15(): (Uint8Array | undefined) {
     assert(this.isV15)
+    return this._chain.decodeEvent(this.event)
+  }
+
+  /**
+   * Some XCM was executed ok.
+   */
+  get isV30(): boolean {
+    return this._chain.getEventHash('XcmpQueue.Success') === '70e4953d4755440ebd53ef8a5482ada34f27cd1aac56b0493142d711aebc0e85'
+  }
+
+  /**
+   * Some XCM was executed ok.
+   */
+  get asV30(): {messageHash: (Uint8Array | undefined), weight: bigint} {
+    assert(this.isV30)
     return this._chain.decodeEvent(this.event)
   }
 }
@@ -4940,6 +5100,21 @@ export class XcmpQueueUpwardMessageSentEvent {
     assert(this.isV15)
     return this._chain.decodeEvent(this.event)
   }
+
+  /**
+   * An upward message was sent to the relay chain.
+   */
+  get isV30(): boolean {
+    return this._chain.getEventHash('XcmpQueue.UpwardMessageSent') === 'ccbb82ba01a4d742bdd34e545836a89f2c435428f6887f28ce1ecf0166419df1'
+  }
+
+  /**
+   * An upward message was sent to the relay chain.
+   */
+  get asV30(): {messageHash: (Uint8Array | undefined)} {
+    assert(this.isV30)
+    return this._chain.decodeEvent(this.event)
+  }
 }
 
 export class XcmpQueueXcmpMessageSentEvent {
@@ -4967,6 +5142,21 @@ export class XcmpQueueXcmpMessageSentEvent {
    */
   get asV15(): (Uint8Array | undefined) {
     assert(this.isV15)
+    return this._chain.decodeEvent(this.event)
+  }
+
+  /**
+   * An HRMP message was sent to a sibling parachain.
+   */
+  get isV30(): boolean {
+    return this._chain.getEventHash('XcmpQueue.XcmpMessageSent') === 'ccbb82ba01a4d742bdd34e545836a89f2c435428f6887f28ce1ecf0166419df1'
+  }
+
+  /**
+   * An HRMP message was sent to a sibling parachain.
+   */
+  get asV30(): {messageHash: (Uint8Array | undefined)} {
+    assert(this.isV30)
     return this._chain.decodeEvent(this.event)
   }
 }

@@ -1,6 +1,6 @@
 {
   "outDir": "../src/types/generated",
-  "specVersions": "astarVersions.jsonl",
+  "specVersions": "https://astar.archive.subsquid.io/graphql",
   "typesBundle": "astar",
   "events": true,
   "calls": true

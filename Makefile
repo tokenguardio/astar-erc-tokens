@@ -21,7 +21,7 @@ build:
 codegen:
 	@npx squid-typeorm-codegen
 
-typegen: astarVersions.json
+typegen:
 	@npx squid-substrate-typegen ./typegen/typegen.json
 
 

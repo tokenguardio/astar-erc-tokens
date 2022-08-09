@@ -10,6 +10,7 @@ import * as v15 from './v15'
 import * as v16 from './v16'
 import * as v17 from './v17'
 import * as v23 from './v23'
+import * as v30 from './v30'
 
 export class AssetsApproveTransferCall {
   private readonly _chain: Chain
@@ -3136,6 +3137,31 @@ export class EthCallCallCall {
     assert(this.isV23)
     return this._chain.decodeCall(this.call)
   }
+
+  /**
+   * # <weight>
+   * - O(1).
+   * - Limited storage reads.
+   * - One DB write (event).
+   * - Weight of derivative `call` execution + 10,000.
+   * # </weight>
+   */
+  get isV30(): boolean {
+    return this._chain.getCallHash('EthCall.call') === '976fd0b086898c00a8952b1a176f3728f3225ef6d20ee1f625e969172d663e2f'
+  }
+
+  /**
+   * # <weight>
+   * - O(1).
+   * - Limited storage reads.
+   * - One DB write (event).
+   * - Weight of derivative `call` execution + 10,000.
+   * # </weight>
+   */
+  get asV30(): {call: v30.Call, signer: Uint8Array, signature: Uint8Array, nonce: number} {
+    assert(this.isV30)
+    return this._chain.decodeCall(this.call)
+  }
 }
 
 export class EthereumTransactCall {
@@ -4695,6 +4721,51 @@ export class MultisigAsMultiThreshold1Call {
     assert(this.isV23)
     return this._chain.decodeCall(this.call)
   }
+
+  /**
+   * Immediately dispatch a multi-signature call using a single approval from the caller.
+   * 
+   * The dispatch origin for this call must be _Signed_.
+   * 
+   * - `other_signatories`: The accounts (other than the sender) who are part of the
+   * multi-signature, but do not participate in the approval process.
+   * - `call`: The call to be executed.
+   * 
+   * Result is equivalent to the dispatched result.
+   * 
+   * # <weight>
+   * O(Z + C) where Z is the length of the call and C its execution weight.
+   * -------------------------------
+   * - DB Weight: None
+   * - Plus Call Weight
+   * # </weight>
+   */
+  get isV30(): boolean {
+    return this._chain.getCallHash('Multisig.as_multi_threshold_1') === '02cc32d160d7874cf3231c81578900d46495b652667cb44495f924b584788377'
+  }
+
+  /**
+   * Immediately dispatch a multi-signature call using a single approval from the caller.
+   * 
+   * The dispatch origin for this call must be _Signed_.
+   * 
+   * - `other_signatories`: The accounts (other than the sender) who are part of the
+   * multi-signature, but do not participate in the approval process.
+   * - `call`: The call to be executed.
+   * 
+   * Result is equivalent to the dispatched result.
+   * 
+   * # <weight>
+   * O(Z + C) where Z is the length of the call and C its execution weight.
+   * -------------------------------
+   * - DB Weight: None
+   * - Plus Call Weight
+   * # </weight>
+   */
+  get asV30(): {otherSignatories: Uint8Array[], call: v30.Call} {
+    assert(this.isV30)
+    return this._chain.decodeCall(this.call)
+  }
 }
 
 export class MultisigCancelAsMultiCall {
@@ -6006,6 +6077,39 @@ export class SudoSudoCall {
     assert(this.isV23)
     return this._chain.decodeCall(this.call)
   }
+
+  /**
+   * Authenticates the sudo key and dispatches a function call with `Root` origin.
+   * 
+   * The dispatch origin for this call must be _Signed_.
+   * 
+   * # <weight>
+   * - O(1).
+   * - Limited storage reads.
+   * - One DB write (event).
+   * - Weight of derivative `call` execution + 10,000.
+   * # </weight>
+   */
+  get isV30(): boolean {
+    return this._chain.getCallHash('Sudo.sudo') === 'ca6233b935debffab7782179240bb50e973aed0454a02f26f14b549fe34665b1'
+  }
+
+  /**
+   * Authenticates the sudo key and dispatches a function call with `Root` origin.
+   * 
+   * The dispatch origin for this call must be _Signed_.
+   * 
+   * # <weight>
+   * - O(1).
+   * - Limited storage reads.
+   * - One DB write (event).
+   * - Weight of derivative `call` execution + 10,000.
+   * # </weight>
+   */
+  get asV30(): {call: v30.Call} {
+    assert(this.isV30)
+    return this._chain.decodeCall(this.call)
+  }
 }
 
 export class SudoSudoAsCall {
@@ -6370,6 +6474,41 @@ export class SudoSudoAsCall {
     assert(this.isV23)
     return this._chain.decodeCall(this.call)
   }
+
+  /**
+   * Authenticates the sudo key and dispatches a function call with `Signed` origin from
+   * a given account.
+   * 
+   * The dispatch origin for this call must be _Signed_.
+   * 
+   * # <weight>
+   * - O(1).
+   * - Limited storage reads.
+   * - One DB write (event).
+   * - Weight of derivative `call` execution + 10,000.
+   * # </weight>
+   */
+  get isV30(): boolean {
+    return this._chain.getCallHash('Sudo.sudo_as') === '521149658e9ca860ee1064baad08be05c4e40e11c9c49de3c5cbb034337cef98'
+  }
+
+  /**
+   * Authenticates the sudo key and dispatches a function call with `Signed` origin from
+   * a given account.
+   * 
+   * The dispatch origin for this call must be _Signed_.
+   * 
+   * # <weight>
+   * - O(1).
+   * - Limited storage reads.
+   * - One DB write (event).
+   * - Weight of derivative `call` execution + 10,000.
+   * # </weight>
+   */
+  get asV30(): {who: v30.MultiAddress, call: v30.Call} {
+    assert(this.isV30)
+    return this._chain.decodeCall(this.call)
+  }
 }
 
 export class SudoSudoUncheckedWeightCall {
@@ -6712,6 +6851,39 @@ export class SudoSudoUncheckedWeightCall {
    */
   get asV23(): {call: v23.Call, weight: bigint} {
     assert(this.isV23)
+    return this._chain.decodeCall(this.call)
+  }
+
+  /**
+   * Authenticates the sudo key and dispatches a function call with `Root` origin.
+   * This function does not check the weight of the call, and instead allows the
+   * Sudo user to specify the weight of the call.
+   * 
+   * The dispatch origin for this call must be _Signed_.
+   * 
+   * # <weight>
+   * - O(1).
+   * - The weight of this call is defined by the caller.
+   * # </weight>
+   */
+  get isV30(): boolean {
+    return this._chain.getCallHash('Sudo.sudo_unchecked_weight') === 'b17d0668b1eb46902fdf9c3670ad315f9ec6f57d3009fc4350d7ee7d2f4378bb'
+  }
+
+  /**
+   * Authenticates the sudo key and dispatches a function call with `Root` origin.
+   * This function does not check the weight of the call, and instead allows the
+   * Sudo user to specify the weight of the call.
+   * 
+   * The dispatch origin for this call must be _Signed_.
+   * 
+   * # <weight>
+   * - O(1).
+   * - The weight of this call is defined by the caller.
+   * # </weight>
+   */
+  get asV30(): {call: v30.Call, weight: bigint} {
+    assert(this.isV30)
     return this._chain.decodeCall(this.call)
   }
 }
@@ -7605,6 +7777,45 @@ export class UtilityAsDerivativeCall {
     assert(this.isV23)
     return this._chain.decodeCall(this.call)
   }
+
+  /**
+   * Send a call through an indexed pseudonym of the sender.
+   * 
+   * Filter from origin are passed along. The call will be dispatched with an origin which
+   * use the same filter as the origin of this call.
+   * 
+   * NOTE: If you need to ensure that any account-based filtering is not honored (i.e.
+   * because you expect `proxy` to have been used prior in the call stack and you do not want
+   * the call restrictions to apply to any sub-accounts), then use `as_multi_threshold_1`
+   * in the Multisig pallet instead.
+   * 
+   * NOTE: Prior to version *12, this was called `as_limited_sub`.
+   * 
+   * The dispatch origin for this call must be _Signed_.
+   */
+  get isV30(): boolean {
+    return this._chain.getCallHash('Utility.as_derivative') === 'e209e93c56cbd5b2d5ef68109ae8ee2605d15db41eb59946e6d72d6922930d01'
+  }
+
+  /**
+   * Send a call through an indexed pseudonym of the sender.
+   * 
+   * Filter from origin are passed along. The call will be dispatched with an origin which
+   * use the same filter as the origin of this call.
+   * 
+   * NOTE: If you need to ensure that any account-based filtering is not honored (i.e.
+   * because you expect `proxy` to have been used prior in the call stack and you do not want
+   * the call restrictions to apply to any sub-accounts), then use `as_multi_threshold_1`
+   * in the Multisig pallet instead.
+   * 
+   * NOTE: Prior to version *12, this was called `as_limited_sub`.
+   * 
+   * The dispatch origin for this call must be _Signed_.
+   */
+  get asV30(): {index: number, call: v30.Call} {
+    assert(this.isV30)
+    return this._chain.decodeCall(this.call)
+  }
 }
 
 export class UtilityBatchCall {
@@ -8129,6 +8340,57 @@ export class UtilityBatchCall {
     assert(this.isV23)
     return this._chain.decodeCall(this.call)
   }
+
+  /**
+   * Send a batch of dispatch calls.
+   * 
+   * May be called from any origin.
+   * 
+   * - `calls`: The calls to be dispatched from the same origin. The number of call must not
+   *   exceed the constant: `batched_calls_limit` (available in constant metadata).
+   * 
+   * If origin is root then call are dispatch without checking origin filter. (This includes
+   * bypassing `frame_system::Config::BaseCallFilter`).
+   * 
+   * # <weight>
+   * - Complexity: O(C) where C is the number of calls to be batched.
+   * # </weight>
+   * 
+   * This will return `Ok` in all circumstances. To determine the success of the batch, an
+   * event is deposited. If a call failed and the batch was interrupted, then the
+   * `BatchInterrupted` event is deposited, along with the number of successful calls made
+   * and the error of the failed call. If all were successful, then the `BatchCompleted`
+   * event is deposited.
+   */
+  get isV30(): boolean {
+    return this._chain.getCallHash('Utility.batch') === 'aa1cfa5024034c219d5df99f06aeb2f4ab2d6785a14c61ac57bff0046315494e'
+  }
+
+  /**
+   * Send a batch of dispatch calls.
+   * 
+   * May be called from any origin.
+   * 
+   * - `calls`: The calls to be dispatched from the same origin. The number of call must not
+   *   exceed the constant: `batched_calls_limit` (available in constant metadata).
+   * 
+   * If origin is root then call are dispatch without checking origin filter. (This includes
+   * bypassing `frame_system::Config::BaseCallFilter`).
+   * 
+   * # <weight>
+   * - Complexity: O(C) where C is the number of calls to be batched.
+   * # </weight>
+   * 
+   * This will return `Ok` in all circumstances. To determine the success of the batch, an
+   * event is deposited. If a call failed and the batch was interrupted, then the
+   * `BatchInterrupted` event is deposited, along with the number of successful calls made
+   * and the error of the failed call. If all were successful, then the `BatchCompleted`
+   * event is deposited.
+   */
+  get asV30(): {calls: v30.Call[]} {
+    assert(this.isV30)
+    return this._chain.decodeCall(this.call)
+  }
 }
 
 export class UtilityBatchAllCall {
@@ -8553,6 +8815,47 @@ export class UtilityBatchAllCall {
     assert(this.isV23)
     return this._chain.decodeCall(this.call)
   }
+
+  /**
+   * Send a batch of dispatch calls and atomically execute them.
+   * The whole transaction will rollback and fail if any of the calls failed.
+   * 
+   * May be called from any origin.
+   * 
+   * - `calls`: The calls to be dispatched from the same origin. The number of call must not
+   *   exceed the constant: `batched_calls_limit` (available in constant metadata).
+   * 
+   * If origin is root then call are dispatch without checking origin filter. (This includes
+   * bypassing `frame_system::Config::BaseCallFilter`).
+   * 
+   * # <weight>
+   * - Complexity: O(C) where C is the number of calls to be batched.
+   * # </weight>
+   */
+  get isV30(): boolean {
+    return this._chain.getCallHash('Utility.batch_all') === 'aa1cfa5024034c219d5df99f06aeb2f4ab2d6785a14c61ac57bff0046315494e'
+  }
+
+  /**
+   * Send a batch of dispatch calls and atomically execute them.
+   * The whole transaction will rollback and fail if any of the calls failed.
+   * 
+   * May be called from any origin.
+   * 
+   * - `calls`: The calls to be dispatched from the same origin. The number of call must not
+   *   exceed the constant: `batched_calls_limit` (available in constant metadata).
+   * 
+   * If origin is root then call are dispatch without checking origin filter. (This includes
+   * bypassing `frame_system::Config::BaseCallFilter`).
+   * 
+   * # <weight>
+   * - Complexity: O(C) where C is the number of calls to be batched.
+   * # </weight>
+   */
+  get asV30(): {calls: v30.Call[]} {
+    assert(this.isV30)
+    return this._chain.decodeCall(this.call)
+  }
 }
 
 export class UtilityDispatchAsCall {
@@ -8864,6 +9167,39 @@ export class UtilityDispatchAsCall {
     assert(this.isV23)
     return this._chain.decodeCall(this.call)
   }
+
+  /**
+   * Dispatches a function call with a provided origin.
+   * 
+   * The dispatch origin for this call must be _Root_.
+   * 
+   * # <weight>
+   * - O(1).
+   * - Limited storage reads.
+   * - One DB write (event).
+   * - Weight of derivative `call` execution + T::WeightInfo::dispatch_as().
+   * # </weight>
+   */
+  get isV30(): boolean {
+    return this._chain.getCallHash('Utility.dispatch_as') === 'e031f4b10bc7a9c33915a944c38911c51f51c11abb84728c08bdfd77e2c02c14'
+  }
+
+  /**
+   * Dispatches a function call with a provided origin.
+   * 
+   * The dispatch origin for this call must be _Root_.
+   * 
+   * # <weight>
+   * - O(1).
+   * - Limited storage reads.
+   * - One DB write (event).
+   * - Weight of derivative `call` execution + T::WeightInfo::dispatch_as().
+   * # </weight>
+   */
+  get asV30(): {asOrigin: v30.OriginCaller, call: v30.Call} {
+    assert(this.isV30)
+    return this._chain.decodeCall(this.call)
+  }
 }
 
 export class UtilityForceBatchCall {
@@ -8917,6 +9253,47 @@ export class UtilityForceBatchCall {
    */
   get asV23(): {calls: v23.Call[]} {
     assert(this.isV23)
+    return this._chain.decodeCall(this.call)
+  }
+
+  /**
+   * Send a batch of dispatch calls.
+   * Unlike `batch`, it allows errors and won't interrupt.
+   * 
+   * May be called from any origin.
+   * 
+   * - `calls`: The calls to be dispatched from the same origin. The number of call must not
+   *   exceed the constant: `batched_calls_limit` (available in constant metadata).
+   * 
+   * If origin is root then call are dispatch without checking origin filter. (This includes
+   * bypassing `frame_system::Config::BaseCallFilter`).
+   * 
+   * # <weight>
+   * - Complexity: O(C) where C is the number of calls to be batched.
+   * # </weight>
+   */
+  get isV30(): boolean {
+    return this._chain.getCallHash('Utility.force_batch') === 'aa1cfa5024034c219d5df99f06aeb2f4ab2d6785a14c61ac57bff0046315494e'
+  }
+
+  /**
+   * Send a batch of dispatch calls.
+   * Unlike `batch`, it allows errors and won't interrupt.
+   * 
+   * May be called from any origin.
+   * 
+   * - `calls`: The calls to be dispatched from the same origin. The number of call must not
+   *   exceed the constant: `batched_calls_limit` (available in constant metadata).
+   * 
+   * If origin is root then call are dispatch without checking origin filter. (This includes
+   * bypassing `frame_system::Config::BaseCallFilter`).
+   * 
+   * # <weight>
+   * - Complexity: O(C) where C is the number of calls to be batched.
+   * # </weight>
+   */
+  get asV30(): {calls: v30.Call[]} {
+    assert(this.isV30)
     return this._chain.decodeCall(this.call)
   }
 }
