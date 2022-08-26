@@ -1,5 +1,7 @@
 # Astar ERC squid
 
+:mag_right: **Explore publick squid in [Aquarium](https://app.subsquid.io/aquarium/astar-erc-tokens).**
+
 This squid uses Firesquid framework version,
 [EVM logs indexing feature](https://docs.subsquid.io/develop-a-squid/squid-processor/evm-support)
 and [batch processing flow](https://docs.subsquid.io/develop-a-squid/squid-processor/batch-processor-in-action).
