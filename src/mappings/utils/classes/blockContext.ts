@@ -16,7 +16,7 @@ export class BlockContextManager {
     assert(this.event, 'Current event is not available');
     const eventDecorated = this.event;
 
-    if ('log' in eventDecorated.args && !('topic' in eventDecorated.args))
+    if ('log' in eventDecorated.args && !('topics' in eventDecorated.args))
       eventDecorated.args = {
         ...eventDecorated.args,
         ...eventDecorated.args.logs
