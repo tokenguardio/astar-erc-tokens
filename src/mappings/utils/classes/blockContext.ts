@@ -15,13 +15,11 @@ export class BlockContextManager {
   getCurrentEvent(): EvmLogEvent {
     assert(this.event, 'Current event is not available');
     const eventDecorated = this.event;
-
     if ('log' in eventDecorated.args && !('topics' in eventDecorated.args))
       eventDecorated.args = {
-        ...eventDecorated.args,
-        ...eventDecorated.args.logs
+        ...this.event.args,
+        ...this.event.args.log
       };
-
     return eventDecorated;
   }
 
