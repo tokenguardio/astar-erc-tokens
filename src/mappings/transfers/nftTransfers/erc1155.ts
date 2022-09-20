@@ -4,6 +4,11 @@ import { ContractStandard, TransferDirection } from '../../../model';
 
 export async function handleErc1155TransferSingle(): Promise<void> {
   const event = utils.common.blockContextManager.getCurrentEvent();
+  const block = utils.common.blockContextManager.getCurrentBlock();
+
+  console.log('block - ', block.height);
+  console.log('event - ', event);
+  console.log('event.args - ', event.args);
 
   const {
     operator,
