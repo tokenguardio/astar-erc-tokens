@@ -43,7 +43,7 @@ export async function handleErc1155UriChanged(): Promise<void> {
     }
   );
 
-  if (!token) throw new Error('Token is not existing.');
+  if (!token) return;
 
   const oldUriVal = token.uri || null;
   token.uri = value;
