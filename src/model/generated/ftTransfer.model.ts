@@ -13,6 +13,9 @@ export class FtTransfer {
   @PrimaryColumn_()
   id!: string
 
+  @Column_("text", {nullable: true})
+  callId!: string | undefined | null
+
   @Index_()
   @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
   blockNumber!: bigint

@@ -41,6 +41,7 @@ export class FtTransferManager extends EntitiesManager<FtTransfer> {
 
     const transfer = new FtTransfer({
       id: event.id,
+      callId: event.call?.id,
       blockNumber: BigInt(block.height),
       timestamp: new Date(block.timestamp),
       eventIndex: event.indexInBlock,

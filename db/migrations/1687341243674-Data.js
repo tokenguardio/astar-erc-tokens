@@ -1,11 +1,11 @@
-module.exports = class Data1686073716357 {
-  name = 'Data1686073716357'
+module.exports = class Data1687341243674 {
+  name = 'Data1687341243674'
 
   async up(db) {
     await db.query(`CREATE TABLE "f_token" ("id" character varying NOT NULL, "name" text, "symbol" text, "decimals" integer, CONSTRAINT "PK_da896c08df3022e579355d781b9" PRIMARY KEY ("id"))`)
     await db.query(`CREATE INDEX "IDX_603b3fbd2a6038c5ae2fb820f1" ON "f_token" ("name") `)
     await db.query(`CREATE INDEX "IDX_797b629af41b1005b30650f3fb" ON "f_token" ("symbol") `)
-    await db.query(`CREATE TABLE "ft_transfer" ("id" character varying NOT NULL, "block_number" numeric NOT NULL, "timestamp" TIMESTAMP WITH TIME ZONE NOT NULL, "event_index" integer NOT NULL, "txn_hash" text NOT NULL, "amount" numeric, "transfer_type" character varying(8), "from_id" character varying NOT NULL, "to_id" character varying NOT NULL, "token_id" character varying NOT NULL, CONSTRAINT "PK_9197e98e6e5fc3ead382a4b80a3" PRIMARY KEY ("id"))`)
+    await db.query(`CREATE TABLE "ft_transfer" ("id" character varying NOT NULL, "call_id" text, "block_number" numeric NOT NULL, "timestamp" TIMESTAMP WITH TIME ZONE NOT NULL, "event_index" integer NOT NULL, "txn_hash" text NOT NULL, "amount" numeric, "transfer_type" character varying(8), "from_id" character varying NOT NULL, "to_id" character varying NOT NULL, "token_id" character varying NOT NULL, CONSTRAINT "PK_9197e98e6e5fc3ead382a4b80a3" PRIMARY KEY ("id"))`)
     await db.query(`CREATE INDEX "IDX_848de4fc3add5493bf6a57db46" ON "ft_transfer" ("block_number") `)
     await db.query(`CREATE INDEX "IDX_f4243fda4987918294ab60aec5" ON "ft_transfer" ("from_id") `)
     await db.query(`CREATE INDEX "IDX_f81105df1373810287fb884063" ON "ft_transfer" ("to_id") `)

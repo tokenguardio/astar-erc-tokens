@@ -96,6 +96,7 @@ interface Transfer {
 # Fungible token transfers
 type FtTransfer implements Transfer @entity {
   id: ID!
+  callId: String
   blockNumber: BigInt! @index
   timestamp: DateTime!
   eventIndex: Int!
